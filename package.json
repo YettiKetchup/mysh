@@ -1,0 +1,22 @@
+{
+  "name": "mysh",
+  "version": "0.9.0",
+  "description": "A typescript library that implements ECS architecture for games",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf /dist && npm run build:esm && npm run build:cjs ",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "start": "npm run start dist/esm/index.js"
+  },
+  "author": "Daniil Stolpnik",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.4.0",
+    "typescript": "^5.1.6"
+  }
+}

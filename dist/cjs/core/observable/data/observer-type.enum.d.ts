@@ -1,0 +1,7 @@
+export declare enum ObserverType {
+    ADDED = 0,
+    CHANGED = 1,
+    REMOVED = 2,
+    ENABLED = 3,
+    DISABLED = 4
+}
