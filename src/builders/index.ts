@@ -1,4 +1,3 @@
-export { ChainBuilder } from "./chain.builder";
-export { EntityBuilder } from "./entity.builder";
+export { ChainBuilder } from './chain.builder';
 
-export * from "./data/interfaces";
+export * from './data/interfaces';

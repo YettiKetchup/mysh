@@ -1,4 +1,4 @@
-import { Component, ComponentType } from "../component";
+import { Component, ComponentType } from '../component';
 
 export class ComponentsCollection {
   public get components(): Component[] {
@@ -13,6 +13,10 @@ export class ComponentsCollection {
 
   public add(component: Component): void {
     this._components.push(component);
+  }
+
+  public toBeginning(component: Component): void {
+    this.components.unshift(component);
   }
 
   public get<T extends Component>(type: ComponentType<T>): T | null {

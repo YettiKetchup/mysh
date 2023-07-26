@@ -1,4 +1,2 @@
-export * from "./data/types";
-export { MixinEntity } from "./mixin.entity";
-export { BaseEntity } from "./base.entity";
+export { Entity } from './entity';
 //# sourceMappingURL=index.js.map

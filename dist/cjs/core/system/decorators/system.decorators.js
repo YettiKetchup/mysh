@@ -15,6 +15,7 @@ function Excludes(...excludes) {
 exports.Excludes = Excludes;
 function WithDisabled(withDisabled) {
     return function (constructor) {
+        console.log('WORK?!', constructor.prototype);
         constructor.prototype.withDisabled = withDisabled;
     };
 }

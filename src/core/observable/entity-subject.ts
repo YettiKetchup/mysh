@@ -1,7 +1,7 @@
-import { ComponentType } from "../component";
-import { IEntity } from "../entity";
-import { ObserverType } from "./data/observer-type.enum";
-import { EntityObserver } from "./entity-observer";
+import { ComponentType } from '../component';
+import { Entity } from '../entity';
+import { ObserverType } from './data/observer-type.enum';
+import { EntityObserver } from './entity-observer';
 
 export class EntitySubject {
   public static get instance(): EntitySubject {
@@ -25,7 +25,7 @@ export class EntitySubject {
 
   public notify(
     type: ObserverType,
-    entity: IEntity,
+    entity: Entity,
     watch?: ComponentType<any>
   ): void {
     const observers = watch

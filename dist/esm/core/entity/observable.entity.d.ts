@@ -1,6 +1,6 @@
-import { Component, ComponentType } from "../component";
-import { EntitySubject } from "../observable";
-import { IEntity } from "./data/interfaces";
+import { Component, ComponentType } from '../component';
+import { EntitySubject } from '../observable';
+import { Entity } from './entity';
 export declare class ObservableEntity {
     private _entity;
     private _subject;
@@ -14,7 +14,7 @@ export declare class ObservableEntity {
      */
     get visible(): boolean;
     set visible(value: boolean);
-    constructor(_entity: IEntity, _subject: EntitySubject);
+    constructor(_entity: Entity, _subject: EntitySubject);
     /**
      * Adds a new component to the Entity and fire ObserverType.ADDED event.
      * The component must be of a unique type.

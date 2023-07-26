@@ -1,5 +1,5 @@
-import { ObserverType } from "./data/observer-type.enum";
-import { EntityObserver } from "./entity-observer";
+import { ObserverType } from './data/observer-type.enum';
+import { EntityObserver } from './entity-observer';
 export class EntitySubject {
     constructor() {
         this._observers = [];

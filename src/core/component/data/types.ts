@@ -1,4 +1,5 @@
-import { IObservableComponent } from "./interfaces";
+import { PureObject } from '../../../data/types';
+import { IObservableComponent } from './interfaces';
 
 /**
  * A component can be any object, but not an array or a function.
@@ -35,7 +36,7 @@ import { IObservableComponent } from "./interfaces";
  * const entity player = new Entity("Player", [health, player]);
  * }
  */
-export type Component = object & { length?: never; constructor: any };
+export type Component = PureObject;
 
 /**
  * The type of the object's constructor.

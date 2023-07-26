@@ -1,6 +1,6 @@
-import { Component, ComponentType } from "../component";
-import { EntitySubject, ObserverType } from "../observable";
-import { IEntity } from "./data/interfaces";
+import { Component, ComponentType } from '../component';
+import { EntitySubject, ObserverType } from '../observable';
+import { Entity } from './entity';
 
 export class ObservableEntity {
   /**
@@ -23,7 +23,7 @@ export class ObservableEntity {
     this._subject.notify(event, this._entity);
   }
 
-  constructor(private _entity: IEntity, private _subject: EntitySubject) {}
+  constructor(private _entity: Entity, private _subject: EntitySubject) {}
 
   /**
    * Adds a new component to the Entity and fire ObserverType.ADDED event.

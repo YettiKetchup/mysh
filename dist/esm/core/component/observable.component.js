@@ -1,4 +1,4 @@
-import { ObserverType } from "../observable";
+import { ObserverType } from '../observable';
 /**
  * A wrapper around a Component that makes it observable.
  * On initialization, creates accessors for each field of the source object.

@@ -1,4 +1,4 @@
-import { SystemEntitiesCollection } from "./system-entities.collection";
+import { SystemEntitiesCollection } from './system-entities.collection';
 export class EntitiesCollection {
     constructor() {
         this._entities = [];
