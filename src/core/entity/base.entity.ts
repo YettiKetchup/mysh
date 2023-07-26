@@ -22,8 +22,8 @@ export class Entity {
     return this._collection.components;
   }
 
-  public _visible: boolean = true;
-  public _collection: ComponentsCollection = new ComponentsCollection();
+  private _visible: boolean = true;
+  private _collection: ComponentsCollection = new ComponentsCollection();
 
   public add(component: Component): void {
     if (this._collection.has(component.constructor)) {
@@ -72,7 +72,7 @@ export class Entity {
     return new ObservableEntity(this, EntitySubject.instance);
   }
 
-  public createObservableComponent<T extends Component>(
+  private createObservableComponent<T extends Component>(
     component: T
   ): ObservableComponent<T> {
     return new ObservableComponentWrapper(
