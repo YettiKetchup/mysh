@@ -18,7 +18,7 @@ export class EntitiesCollection {
   }
 
   public remove(entity: Entity): void {
-    // this._entities = this._entities.filter((e) => e.id !== entity.id);
+    this._entities = this._entities.filter((e) => e.id !== entity.id);
   }
 
   public get(filter: IComponentFilter): SystemEntitiesCollection<Entity> {

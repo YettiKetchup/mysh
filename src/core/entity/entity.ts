@@ -1,4 +1,7 @@
+import { uid } from '../../tools/utils';
 import { ComponentsCollection } from '../collections';
+import { EntitySubject } from '../observable';
+import { ObservableEntity } from './observable.entity';
 import {
   Component,
   IComponentFilter,
@@ -6,10 +9,12 @@ import {
   ObservableComponent,
   ObservableComponentWrapper,
 } from '../component';
-import { EntitySubject } from '../observable';
-import { ObservableEntity } from './observable.entity';
 
 export class Entity {
+  public get id(): string {
+    return this._id;
+  }
+
   public get visible(): boolean {
     return this._visible;
   }
@@ -22,6 +27,7 @@ export class Entity {
     return this._collection.components;
   }
 
+  private _id: string = uid();
   private _visible: boolean = true;
   private _collection: ComponentsCollection = new ComponentsCollection();
 
