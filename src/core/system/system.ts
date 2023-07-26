@@ -1,6 +1,11 @@
-import { EntitiesCollection, SystemEntitiesCollection } from "../collections";
-import { IComponentFilter, ComponentType } from "../component";
-import { IEntity } from "../entity";
+import { EntitiesCollection, SystemEntitiesCollection } from '../collections';
+import { IComponentFilter, ComponentType } from '../component';
+import { Entity } from '../entity';
+import {
+  Excludes,
+  Includes,
+  WithDisabled,
+} from './decorators/system.decorators';
 
 /**
  * The system is a class in which all work with the data
@@ -43,16 +48,19 @@ import { IEntity } from "../entity";
  *   }
  * }
  */
-export abstract class System<TEntity extends IEntity> {
-  public includes: ComponentType<any>[] = [];
-  public excludes: ComponentType<any>[] = [];
-  public withDisabled: boolean = false;
+@Includes()
+@Excludes()
+@WithDisabled(false)
+export abstract class System<TEntity extends Entity> {
+  // public includes: ComponentType<any>[] = [];
+  // public excludes: ComponentType<any>[] = [];
+  // public withDisabled: boolean = false;
 
   public get filter(): IComponentFilter {
     return {
-      includes: this.includes,
-      excludes: this.excludes,
-      withDisabled: this.withDisabled,
+      includes: (this as any).includes,
+      excludes: (this as any).excludes,
+      withDisabled: (this as any).withDisabled,
     };
   }
 
@@ -73,12 +81,12 @@ export abstract class System<TEntity extends IEntity> {
   ): void;
 
   private setupFilterDecorator(decorator: IComponentFilter): IComponentFilter {
-    let { includes, excludes, withDisabled } = this;
+    let { includes, excludes, withDisabled } = this as any;
 
     includes = [...includes, ...(decorator.includes || [])];
     excludes = [...excludes, ...(decorator.excludes || [])];
 
-    if (Object.hasOwn(decorator, "withDisabled")) {
+    if (Object.hasOwn(decorator, 'withDisabled')) {
       withDisabled = decorator.withDisabled as boolean;
     }
 

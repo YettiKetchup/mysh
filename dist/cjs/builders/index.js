@@ -14,10 +14,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EntityBuilder = exports.ChainBuilder = void 0;
+exports.ChainBuilder = void 0;
 var chain_builder_1 = require("./chain.builder");
 Object.defineProperty(exports, "ChainBuilder", { enumerable: true, get: function () { return chain_builder_1.ChainBuilder; } });
-var entity_builder_1 = require("./entity.builder");
-Object.defineProperty(exports, "EntityBuilder", { enumerable: true, get: function () { return entity_builder_1.EntityBuilder; } });
 __exportStar(require("./data/interfaces"), exports);
 //# sourceMappingURL=index.js.map

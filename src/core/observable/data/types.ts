@@ -1,5 +1,5 @@
-import { IEntity } from "../../entity";
+import { Entity } from '../../entity';
 
-export type ObserverSubscribeCallback = (entity: IEntity) => void;
+export type ObserverSubscribeCallback = (entity: Entity) => void;
 
-export type ObserverConditionPipe = (entity: IEntity) => boolean;
+export type ObserverConditionPipe = (entity: Entity) => boolean;

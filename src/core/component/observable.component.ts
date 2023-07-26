@@ -1,7 +1,7 @@
-import { IEntity } from "../entity";
-import { EntitySubject, ObserverType } from "../observable";
-import { IObservableComponent } from "./data/interfaces";
-import { Component } from "./data/types";
+import { Entity } from '../entity';
+import { EntitySubject, ObserverType } from '../observable';
+import { IObservableComponent } from './data/interfaces';
+import { Component } from './data/types';
 
 /**
  * A wrapper around a Component that makes it observable.
@@ -20,13 +20,13 @@ export class ObservableComponentWrapper<TComponent extends Component>
 {
   constructor(
     private _subject: EntitySubject,
-    entity: IEntity,
+    entity: Entity,
     component: TComponent
   ) {
     this.setAcessors(entity, component);
   }
 
-  private setAcessors(entity: IEntity, component: TComponent) {
+  private setAcessors(entity: Entity, component: TComponent) {
     for (let key in component) {
       Object.defineProperty(this, key, {
         get: () => component[key],
@@ -38,7 +38,7 @@ export class ObservableComponentWrapper<TComponent extends Component>
     }
   }
 
-  private notify(entity: IEntity, component: TComponent): void {
+  private notify(entity: Entity, component: TComponent): void {
     const event = ObserverType.CHANGED;
     const componentType = component.constructor;
 

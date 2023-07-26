@@ -1,7 +1,7 @@
-import { IEntity } from "../entity";
-import { EntitySubject } from "../observable";
-import { IObservableComponent } from "./data/interfaces";
-import { Component } from "./data/types";
+import { Entity } from '../entity';
+import { EntitySubject } from '../observable';
+import { IObservableComponent } from './data/interfaces';
+import { Component } from './data/types';
 /**
  * A wrapper around a Component that makes it observable.
  * On initialization, creates accessors for each field of the source object.
@@ -16,7 +16,7 @@ import { Component } from "./data/types";
  */
 export declare class ObservableComponentWrapper<TComponent extends Component> implements IObservableComponent {
     private _subject;
-    constructor(_subject: EntitySubject, entity: IEntity, component: TComponent);
+    constructor(_subject: EntitySubject, entity: Entity, component: TComponent);
     private setAcessors;
     private notify;
 }

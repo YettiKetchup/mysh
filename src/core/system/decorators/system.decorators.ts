@@ -1,4 +1,4 @@
-import { ComponentType } from "../../component";
+import { ComponentType } from '../../component';
 
 export function Includes(...includes: ComponentType<any>[]) {
   return function (constructor: Function) {
@@ -14,6 +14,7 @@ export function Excludes(...excludes: ComponentType<any>[]) {
 
 export function WithDisabled(withDisabled: boolean) {
   return function (constructor: Function) {
+    console.log('WORK?!', constructor.prototype);
     constructor.prototype.withDisabled = withDisabled;
   };
 }

@@ -1,4 +1,4 @@
-import { Chain } from "../core/chain";
+import { Chain } from '../core/chain';
 export class ChainBuilder {
     get _cerrunt() {
         return this._chain.links.length - 1;

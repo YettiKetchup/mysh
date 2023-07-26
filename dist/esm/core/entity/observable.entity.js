@@ -1,4 +1,4 @@
-import { ObserverType } from "../observable";
+import { ObserverType } from '../observable';
 export class ObservableEntity {
     /**
      * If the Entity is not active, it will be ignored by Systems,

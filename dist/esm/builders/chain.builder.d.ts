@@ -1,8 +1,8 @@
-import { EntitiesCollection } from "../core/collections";
-import { ComponentType } from "../core/component";
-import { System } from "../core/system";
-import { Chain } from "../core/chain";
-import { IChainBuilder } from "./data/interfaces";
+import { EntitiesCollection } from '../core/collections';
+import { ComponentType } from '../core/component';
+import { System } from '../core/system';
+import { Chain } from '../core/chain';
+import { IChainBuilder } from './data/interfaces';
 export declare class ChainBuilder implements IChainBuilder {
     private _entities;
     protected _chain: Chain;
