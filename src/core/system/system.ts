@@ -52,10 +52,6 @@ import {
 @Excludes()
 @WithDisabled(false)
 export abstract class System<TEntity extends Entity> {
-  // public includes: ComponentType<any>[] = [];
-  // public excludes: ComponentType<any>[] = [];
-  // public withDisabled: boolean = false;
-
   public get filter(): IComponentFilter {
     return {
       includes: (this as any).includes,

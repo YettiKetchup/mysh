@@ -15,10 +15,6 @@ export class ComponentsCollection {
     this._components.push(component);
   }
 
-  public toBeginning(component: Component): void {
-    this.components.unshift(component);
-  }
-
   public get<T extends Component>(type: ComponentType<T>): T | null {
     const component = this._components.find(
       (component) => component instanceof type

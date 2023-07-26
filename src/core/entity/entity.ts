@@ -25,14 +25,12 @@ export class Entity {
   private _visible: boolean = true;
   private _collection: ComponentsCollection = new ComponentsCollection();
 
-  public add(component: Component, unshift: boolean = false): void {
+  public add(component: Component): void {
     if (this._collection.has(component.constructor)) {
       throw new Error(`Entity already contains ${component.constructor.name}`);
     }
 
-    unshift
-      ? this._collection.toBeginning(component)
-      : this._collection.add(component);
+    this._collection.add(component);
   }
 
   public get<T extends Component>(
