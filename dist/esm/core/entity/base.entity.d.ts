@@ -1,6 +1,6 @@
 declare class Base {
 }
-export declare const BaseEntity: {
+export declare const Entity: {
     new (...args: any[]): {
         [x: string]: any;
         visible: boolean;

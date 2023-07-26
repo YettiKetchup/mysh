@@ -18,10 +18,10 @@ __exportStar(require("./core/chain"), exports);
 __exportStar(require("./core/collections"), exports);
 __exportStar(require("./core/component"), exports);
 __exportStar(require("./core/entity"), exports);
-__exportStar(require("./core/storage"), exports);
 __exportStar(require("./core/observable"), exports);
 __exportStar(require("./core/system"), exports);
 __exportStar(require("./core/module"), exports);
-__exportStar(require("./core/builders"), exports);
+__exportStar(require("./builders"), exports);
+__exportStar(require("./storage"), exports);
 __exportStar(require("./tools/utils"), exports);
 //# sourceMappingURL=index.js.map

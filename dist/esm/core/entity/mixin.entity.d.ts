@@ -1,7 +1,7 @@
-import { ComponentsCollection } from "../collections";
-import { Component, IComponentFilter, ComponentType, ObservableComponent } from "../component";
-import { MixinConstructor } from "./data/types";
-import { ObservableEntity } from "./observable.entity";
+import { ComponentsCollection } from '../collections';
+import { Component, IComponentFilter, ComponentType, ObservableComponent } from '../component';
+import { MixinConstructor } from './data/types';
+import { ObservableEntity } from './observable.entity';
 export declare function MixinEntity<T extends MixinConstructor>(Mixin: T): {
     new (...args: any[]): {
         [x: string]: any;

@@ -1,15 +1,15 @@
-import { ComponentsCollection } from "../collections";
+import { ComponentsCollection } from '../collections';
 import {
   Component,
   IComponentFilter,
   ComponentType,
   ObservableComponent,
   ObservableComponentWrapper,
-} from "../component";
-import { EntitySubject } from "../observable";
-import { IEntity } from "./data/interfaces";
-import { MixinConstructor } from "./data/types";
-import { ObservableEntity } from "./observable.entity";
+} from '../component';
+import { EntitySubject } from '../observable';
+import { IEntity } from './data/interfaces';
+import { MixinConstructor } from './data/types';
+import { ObservableEntity } from './observable.entity';
 
 export function MixinEntity<T extends MixinConstructor>(Mixin: T) {
   class Entity extends Mixin implements IEntity {

@@ -1,5 +1,5 @@
-import { MixinEntity } from "./mixin.entity";
+import { MixinEntity } from './mixin.entity';
 class Base {
 }
-export const BaseEntity = MixinEntity(Base);
+export const Entity = MixinEntity(Base);
 //# sourceMappingURL=base.entity.js.map
