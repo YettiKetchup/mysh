@@ -14,7 +14,6 @@ export function Excludes(...excludes: ComponentType<any>[]) {
 
 export function WithDisabled(withDisabled: boolean) {
   return function (constructor: Function) {
-    console.log('WORK?!', constructor.prototype);
     constructor.prototype.withDisabled = withDisabled;
   };
 }

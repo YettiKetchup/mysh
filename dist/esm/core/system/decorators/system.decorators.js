@@ -10,7 +10,6 @@ export function Excludes(...excludes) {
 }
 export function WithDisabled(withDisabled) {
     return function (constructor) {
-        console.log('WORK?!', constructor.prototype);
         constructor.prototype.withDisabled = withDisabled;
     };
 }
