@@ -47,9 +47,6 @@ import { Excludes, Includes, WithDisabled, } from './decorators/system.decorator
  * }
  */
 export let System = class System {
-    // public includes: ComponentType<any>[] = [];
-    // public excludes: ComponentType<any>[] = [];
-    // public withDisabled: boolean = false;
     get filter() {
         return {
             includes: this.includes,

@@ -6,7 +6,7 @@ import { IChainBuilder } from './data/interfaces';
 export declare class ChainBuilder implements IChainBuilder {
     private _entities;
     protected _chain: Chain;
-    private get _cerrunt();
+    private get _current();
     constructor(_entities: EntitiesCollection);
     withSystem(system: System<any>): ChainBuilder;
     withIncludes(...components: ComponentType<any>[]): ChainBuilder;

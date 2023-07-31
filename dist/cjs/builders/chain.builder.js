@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChainBuilder = void 0;
 const chain_1 = require("../core/chain");
 class ChainBuilder {
-    get _cerrunt() {
+    get _current() {
         return this._chain.links.length - 1;
     }
     constructor(_entities) {
@@ -17,15 +17,15 @@ class ChainBuilder {
         return this;
     }
     withIncludes(...components) {
-        this._chain.links[this._cerrunt].includes = components;
+        this._chain.links[this._current].includes = components;
         return this;
     }
     withExcludes(...components) {
-        this._chain.links[this._cerrunt].excludes = components;
+        this._chain.links[this._current].excludes = components;
         return this;
     }
     withDisabled(withDisabled) {
-        this._chain.links[this._cerrunt].withDisabled = withDisabled;
+        this._chain.links[this._current].withDisabled = withDisabled;
         return this;
     }
     build() {

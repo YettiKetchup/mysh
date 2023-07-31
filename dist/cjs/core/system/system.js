@@ -50,9 +50,6 @@ const system_decorators_1 = require("./decorators/system.decorators");
  * }
  */
 let System = exports.System = class System {
-    // public includes: ComponentType<any>[] = [];
-    // public excludes: ComponentType<any>[] = [];
-    // public withDisabled: boolean = false;
     get filter() {
         return {
             includes: this.includes,

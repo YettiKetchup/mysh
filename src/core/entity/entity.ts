@@ -31,6 +31,14 @@ export class Entity {
   private _visible: boolean = true;
   private _collection: ComponentsCollection = new ComponentsCollection();
 
+  constructor() {
+    this.onInit();
+  }
+
+  public onInit(): void {}
+
+  public onDestroy(): void {}
+
   public add(component: Component): void {
     if (this._collection.has(component.constructor)) {
       throw new Error(`Entity already contains ${component.constructor.name}`);

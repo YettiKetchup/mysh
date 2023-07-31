@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Entity = void 0;
+const utils_1 = require("../../tools/utils");
 const collections_1 = require("../collections");
-const component_1 = require("../component");
 const observable_1 = require("../observable");
 const observable_entity_1 = require("./observable.entity");
+const component_1 = require("../component");
 class Entity {
-    constructor() {
-        this._visible = true;
-        this._collection = new collections_1.ComponentsCollection();
+    get id() {
+        return this._id;
     }
     get visible() {
         return this._visible;
@@ -19,13 +19,19 @@ class Entity {
     get components() {
         return this._collection.components;
     }
-    add(component, unshift = false) {
+    constructor() {
+        this._id = (0, utils_1.uid)();
+        this._visible = true;
+        this._collection = new collections_1.ComponentsCollection();
+        this.onInit();
+    }
+    onInit() { }
+    onDestroy() { }
+    add(component) {
         if (this._collection.has(component.constructor)) {
             throw new Error(`Entity already contains ${component.constructor.name}`);
         }
-        unshift
-            ? this._collection.toBeginning(component)
-            : this._collection.add(component);
+        this._collection.add(component);
     }
     get(type, isObservable = false) {
         try {

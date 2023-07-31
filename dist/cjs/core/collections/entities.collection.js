@@ -16,7 +16,8 @@ class EntitiesCollection {
         this._entities.push(...entities);
     }
     remove(entity) {
-        // this._entities = this._entities.filter((e) => e.id !== entity.id);
+        this._entities = this._entities.filter((e) => e.id !== entity.id);
+        entity.onDestroy();
     }
     get(filter) {
         let result = [];

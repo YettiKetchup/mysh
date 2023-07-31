@@ -14,9 +14,6 @@ class ComponentsCollection {
     add(component) {
         this._components.push(component);
     }
-    toBeginning(component) {
-        this.components.unshift(component);
-    }
     get(type) {
         const component = this._components.find((component) => component instanceof type);
         return component ? component : null;
