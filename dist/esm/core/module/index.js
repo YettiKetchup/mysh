@@ -1,2 +1,2 @@
-export { Module } from "./module";
+export {};
 //# sourceMappingURL=index.js.map

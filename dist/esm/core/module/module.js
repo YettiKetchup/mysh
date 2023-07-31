@@ -1,9 +1,2 @@
-export class Module {
-    constructor(entities) {
-        this.entities = entities;
-    }
-    init() { }
-    update(deltaTime) { }
-    destroy() { }
-}
+export {};
 //# sourceMappingURL=module.js.map

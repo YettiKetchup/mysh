@@ -1,7 +1,4 @@
-import { EntitiesCollection } from "../collections";
-export declare abstract class Module {
-    protected entities: EntitiesCollection;
-    constructor(entities: EntitiesCollection);
+export interface IModule {
     init(): void;
     update(deltaTime?: number): void;
     destroy(): void;

@@ -1,1 +1,1 @@
-export { Module } from "./module";
+export { IModule } from './module';
