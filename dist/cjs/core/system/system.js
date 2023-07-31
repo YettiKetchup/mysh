@@ -50,6 +50,12 @@ const system_decorators_1 = require("./decorators/system.decorators");
  * }
  */
 let System = exports.System = class System {
+    constructor() {
+        this._entityCollection = null;
+    }
+    get collection() {
+        return this._entityCollection;
+    }
     get filter() {
         return {
             includes: this.includes,
@@ -58,6 +64,7 @@ let System = exports.System = class System {
         };
     }
     async execute(entities, decorator) {
+        this._entityCollection = entities;
         const filter = decorator
             ? this.setupFilterDecorator(decorator)
             : this.filter;

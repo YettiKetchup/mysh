@@ -21,7 +21,6 @@ __exportStar(require("./core/entity"), exports);
 __exportStar(require("./core/observable"), exports);
 __exportStar(require("./core/system"), exports);
 __exportStar(require("./core/module"), exports);
-__exportStar(require("./builders"), exports);
 __exportStar(require("./storage"), exports);
 __exportStar(require("./tools/utils"), exports);
 //# sourceMappingURL=index.js.map

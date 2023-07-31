@@ -52,6 +52,12 @@ import {
 @Excludes()
 @WithDisabled(false)
 export abstract class System<TEntity extends Entity> {
+  private _entityCollection: EntitiesCollection | null = null;
+
+  protected get collection(): EntitiesCollection {
+    return this._entityCollection as EntitiesCollection;
+  }
+
   public get filter(): IComponentFilter {
     return {
       includes: (this as any).includes,
@@ -64,6 +70,8 @@ export abstract class System<TEntity extends Entity> {
     entities: EntitiesCollection,
     decorator?: IComponentFilter
   ): Promise<void> {
+    this._entityCollection = entities;
+
     const filter = decorator
       ? this.setupFilterDecorator(decorator)
       : this.filter;

@@ -1,10 +1,9 @@
-import { EntitiesCollection } from '../core/collections';
-import { ComponentType } from '../core/component';
-import { System } from '../core/system';
-import { Chain } from '../core/chain';
-import { IChainBuilder } from './data/interfaces';
+import { EntitiesCollection } from '../collections';
+import { ComponentType } from '../component';
+import { System } from '../system';
+import { Chain } from '.';
 
-export class ChainBuilder implements IChainBuilder {
+export class ChainBuilder {
   protected _chain: Chain = new Chain(this._entities);
 
   private get _current(): number {

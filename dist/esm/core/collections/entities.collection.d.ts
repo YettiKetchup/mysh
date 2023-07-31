@@ -6,6 +6,6 @@ export declare class EntitiesCollection {
     get count(): number;
     private _entities;
     add(...entities: Entity[]): void;
-    remove(entity: Entity): void;
+    destroy(entity: Entity): void;
     get(filter: IComponentFilter): SystemEntitiesCollection<Entity>;
 }

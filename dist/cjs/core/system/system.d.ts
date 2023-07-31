@@ -43,6 +43,8 @@ import { Entity } from '../entity';
  * }
  */
 export declare abstract class System<TEntity extends Entity> {
+    private _entityCollection;
+    protected get collection(): EntitiesCollection;
     get filter(): IComponentFilter;
     execute(entities: EntitiesCollection, decorator?: IComponentFilter): Promise<void>;
     protected abstract onExecute(entities: SystemEntitiesCollection<TEntity>): void;

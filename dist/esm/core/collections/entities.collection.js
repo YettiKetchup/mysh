@@ -12,7 +12,7 @@ export class EntitiesCollection {
     add(...entities) {
         this._entities.push(...entities);
     }
-    remove(entity) {
+    destroy(entity) {
         this._entities = this._entities.filter((e) => e.id !== entity.id);
         entity.onDestroy();
     }

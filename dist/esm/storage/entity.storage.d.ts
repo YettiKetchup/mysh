@@ -1,9 +1,9 @@
-import { EntitiesCollection } from "../core/collections";
+import { EntitiesCollection } from '../core/collections';
 export declare class EntityStorage {
-    private _collections;
-    get(key: string): EntitiesCollection;
-    create(key: string): EntitiesCollection;
-    destroy(key: string): void;
-    clearAll(): void;
-    combine(key: string, storages: EntitiesCollection[]): EntitiesCollection;
+    private static _collections;
+    static get(key: string): EntitiesCollection;
+    static create(key: string): EntitiesCollection;
+    static destroy(key: string): void;
+    static clearAll(): void;
+    static combine(key: string, storages: EntitiesCollection[]): EntitiesCollection;
 }

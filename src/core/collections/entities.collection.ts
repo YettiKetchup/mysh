@@ -17,7 +17,7 @@ export class EntitiesCollection {
     this._entities.push(...entities);
   }
 
-  public remove(entity: Entity): void {
+  public destroy(entity: Entity): void {
     this._entities = this._entities.filter((e) => e.id !== entity.id);
     entity.onDestroy();
   }

@@ -47,6 +47,12 @@ import { Excludes, Includes, WithDisabled, } from './decorators/system.decorator
  * }
  */
 export let System = class System {
+    constructor() {
+        this._entityCollection = null;
+    }
+    get collection() {
+        return this._entityCollection;
+    }
     get filter() {
         return {
             includes: this.includes,
@@ -55,6 +61,7 @@ export let System = class System {
         };
     }
     async execute(entities, decorator) {
+        this._entityCollection = entities;
         const filter = decorator
             ? this.setupFilterDecorator(decorator)
             : this.filter;
