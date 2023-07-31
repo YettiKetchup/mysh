@@ -25,6 +25,10 @@ export class ChainBuilder {
         this._chain.links[this._current].withDisabled = withDisabled;
         return this;
     }
+    withDelay(delay) {
+        this._chain.links[this._current].delay = delay;
+        return this;
+    }
     build() {
         return this._chain;
     }

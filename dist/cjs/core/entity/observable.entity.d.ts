@@ -1,9 +1,7 @@
 import { Component, ComponentType } from '../component';
-import { EntitySubject } from '../observable';
 import { Entity } from './entity';
 export declare class ObservableEntity {
     private _entity;
-    private _subject;
     /**
      * If the Entity is not active, it will be ignored by Systems,
      * even if it exists in memory.
@@ -14,7 +12,7 @@ export declare class ObservableEntity {
      */
     get visible(): boolean;
     set visible(value: boolean);
-    constructor(_entity: Entity, _subject: EntitySubject);
+    constructor(_entity: Entity);
     /**
      * Adds a new component to the Entity and fire ObserverType.ADDED event.
      * The component must be of a unique type.

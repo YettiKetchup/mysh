@@ -8,7 +8,6 @@ export declare class Entity {
     private _id;
     private _visible;
     private _collection;
-    constructor();
     onInit(): void;
     onDestroy(): void;
     add(component: Component): void;

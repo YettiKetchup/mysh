@@ -1,4 +1,4 @@
-import { ObserverType } from '../observable';
+import { EntitySubject, ObserverType } from '../observable';
 export class ObservableEntity {
     /**
      * If the Entity is not active, it will be ignored by Systems,
@@ -14,11 +14,10 @@ export class ObservableEntity {
     set visible(value) {
         this._entity.visible = value;
         const event = value ? ObserverType.ENABLED : ObserverType.DISABLED;
-        this._subject.notify(event, this._entity);
+        EntitySubject.instance.notify(event, this._entity);
     }
-    constructor(_entity, _subject) {
+    constructor(_entity) {
         this._entity = _entity;
-        this._subject = _subject;
     }
     /**
      * Adds a new component to the Entity and fire ObserverType.ADDED event.
@@ -50,7 +49,7 @@ export class ObservableEntity {
         this._entity.add(component);
         const event = ObserverType.ADDED;
         const componentType = component.constructor;
-        this._subject.notify(event, this._entity, componentType);
+        EntitySubject.instance.notify(event, this._entity, componentType);
     }
     /**
      * Removes and returns a component of the specified type.
@@ -77,7 +76,7 @@ export class ObservableEntity {
     remove(componentType) {
         const component = this._entity.remove(componentType);
         const event = ObserverType.REMOVED;
-        this._subject.notify(event, this._entity, componentType);
+        EntitySubject.instance.notify(event, this._entity, componentType);
         return component;
     }
 }

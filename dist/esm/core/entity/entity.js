@@ -1,9 +1,14 @@
 import { uid } from '../../tools/utils';
 import { ComponentsCollection } from '../collections';
-import { EntitySubject } from '../observable';
+import { EntitySubject, ObserverType } from '../observable';
 import { ObservableEntity } from './observable.entity';
 import { ObservableComponentWrapper, } from '../component';
 export class Entity {
+    constructor() {
+        this._id = uid();
+        this._visible = true;
+        this._collection = new ComponentsCollection();
+    }
     get id() {
         return this._id;
     }
@@ -16,14 +21,12 @@ export class Entity {
     get components() {
         return this._collection.components;
     }
-    constructor() {
-        this._id = uid();
-        this._visible = true;
-        this._collection = new ComponentsCollection();
-        this.onInit();
+    onInit() {
+        EntitySubject.instance.notify(ObserverType.INITIALIZED, this);
     }
-    onInit() { }
-    onDestroy() { }
+    onDestroy() {
+        EntitySubject.instance.notify(ObserverType.DESTROYED, this);
+    }
     add(component) {
         if (this._collection.has(component.constructor)) {
             throw new Error(`Entity already contains ${component.constructor.name}`);
@@ -57,10 +60,10 @@ export class Entity {
         return this.has(includes) && (!excludes.length || !this.has(excludes));
     }
     observable() {
-        return new ObservableEntity(this, EntitySubject.instance);
+        return new ObservableEntity(this);
     }
     createObservableComponent(component) {
-        return new ObservableComponentWrapper(EntitySubject.instance, this, component);
+        return new ObservableComponentWrapper(this, component);
     }
 }
 //# sourceMappingURL=entity.js.map

@@ -1,5 +1,4 @@
 import { Entity } from '../entity';
-import { EntitySubject } from '../observable';
 import { IObservableComponent } from './data/interfaces';
 import { Component } from './data/types';
 /**
@@ -15,8 +14,7 @@ import { Component } from './data/types';
  * which will return an instance of this class if the isObservable flag is true.
  */
 export declare class ObservableComponentWrapper<TComponent extends Component> implements IObservableComponent {
-    private _subject;
-    constructor(_subject: EntitySubject, entity: Entity, component: TComponent);
+    constructor(entity: Entity, component: TComponent);
     private setAcessors;
     private notify;
 }

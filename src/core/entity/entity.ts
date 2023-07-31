@@ -1,6 +1,6 @@
 import { uid } from '../../tools/utils';
 import { ComponentsCollection } from '../collections';
-import { EntitySubject } from '../observable';
+import { EntitySubject, ObserverType } from '../observable';
 import { ObservableEntity } from './observable.entity';
 import {
   Component,
@@ -31,13 +31,13 @@ export class Entity {
   private _visible: boolean = true;
   private _collection: ComponentsCollection = new ComponentsCollection();
 
-  constructor() {
-    this.onInit();
+  public onInit(): void {
+    EntitySubject.instance.notify(ObserverType.INITIALIZED, this);
   }
 
-  public onInit(): void {}
-
-  public onDestroy(): void {}
+  public onDestroy(): void {
+    EntitySubject.instance.notify(ObserverType.DESTROYED, this);
+  }
 
   public add(component: Component): void {
     if (this._collection.has(component.constructor)) {
@@ -83,14 +83,13 @@ export class Entity {
   }
 
   public observable(): ObservableEntity {
-    return new ObservableEntity(this, EntitySubject.instance);
+    return new ObservableEntity(this);
   }
 
   private createObservableComponent<T extends Component>(
     component: T
   ): ObservableComponent<T> {
     return new ObservableComponentWrapper(
-      EntitySubject.instance,
       this,
       component
     ) as unknown as ObservableComponent<T>;

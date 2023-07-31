@@ -7,6 +7,11 @@ const observable_1 = require("../observable");
 const observable_entity_1 = require("./observable.entity");
 const component_1 = require("../component");
 class Entity {
+    constructor() {
+        this._id = (0, utils_1.uid)();
+        this._visible = true;
+        this._collection = new collections_1.ComponentsCollection();
+    }
     get id() {
         return this._id;
     }
@@ -19,14 +24,12 @@ class Entity {
     get components() {
         return this._collection.components;
     }
-    constructor() {
-        this._id = (0, utils_1.uid)();
-        this._visible = true;
-        this._collection = new collections_1.ComponentsCollection();
-        this.onInit();
+    onInit() {
+        observable_1.EntitySubject.instance.notify(observable_1.ObserverType.INITIALIZED, this);
     }
-    onInit() { }
-    onDestroy() { }
+    onDestroy() {
+        observable_1.EntitySubject.instance.notify(observable_1.ObserverType.DESTROYED, this);
+    }
     add(component) {
         if (this._collection.has(component.constructor)) {
             throw new Error(`Entity already contains ${component.constructor.name}`);
@@ -60,10 +63,10 @@ class Entity {
         return this.has(includes) && (!excludes.length || !this.has(excludes));
     }
     observable() {
-        return new observable_entity_1.ObservableEntity(this, observable_1.EntitySubject.instance);
+        return new observable_entity_1.ObservableEntity(this);
     }
     createObservableComponent(component) {
-        return new component_1.ObservableComponentWrapper(observable_1.EntitySubject.instance, this, component);
+        return new component_1.ObservableComponentWrapper(this, component);
     }
 }
 exports.Entity = Entity;

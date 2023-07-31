@@ -11,5 +11,6 @@ export declare class ChainBuilder {
     withIncludes(...components: ComponentType<any>[]): ChainBuilder;
     withExcludes(...components: ComponentType<any>[]): ChainBuilder;
     withDisabled(withDisabled: boolean): ChainBuilder;
+    withDelay(delay: number): ChainBuilder;
     build(): Chain;
 }

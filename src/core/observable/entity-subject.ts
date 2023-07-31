@@ -49,6 +49,42 @@ export class EntitySubject {
   }
 
   /**
+   * Creates an Observer that watches the addition
+   * of the Entity to the Collection
+   *
+   * @returns
+   * Returns an instance of an EntityObserver that watches all
+   * events of type ObserverType.INITIALIZED
+   *
+   * @example
+   * const observer$: EntityObserver = EntitySubject.onInitialize();
+   *
+   * const collection = EntityStorage.create('game');
+   * const entity = new Entity();
+   * collection.add(entity); // fires the event
+   */
+  public static onInitialize(): EntityObserver {
+    return new EntityObserver(this.instance, ObserverType.INITIALIZED);
+  }
+
+  /**
+   * Creates an Observer that monitors the removal
+   * of the Entity from the Collection
+   *
+   * @returns
+   * Returns an instance of an EntityObserver that watches all
+   * events of type ObserverType.REMOVED
+   *
+   * @example
+   * const observer$: EntityObserver = EntitySubject.onDestroy();
+   *
+   * collection.destroy(entity); // fires the event
+   */
+  public static onDestroy(): EntityObserver {
+    return new EntityObserver(this.instance, ObserverType.DESTROYED);
+  }
+
+  /**
    * Creating an observer that watches for changes to ObservableEntity.
    *
    * @returns

@@ -18,11 +18,7 @@ import { Component } from './data/types';
 export class ObservableComponentWrapper<TComponent extends Component>
   implements IObservableComponent
 {
-  constructor(
-    private _subject: EntitySubject,
-    entity: Entity,
-    component: TComponent
-  ) {
+  constructor(entity: Entity, component: TComponent) {
     this.setAcessors(entity, component);
   }
 
@@ -42,6 +38,6 @@ export class ObservableComponentWrapper<TComponent extends Component>
     const event = ObserverType.CHANGED;
     const componentType = component.constructor;
 
-    this._subject.notify(event, entity, componentType);
+    EntitySubject.instance.notify(event, entity, componentType);
   }
 }
