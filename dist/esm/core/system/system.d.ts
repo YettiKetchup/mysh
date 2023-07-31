@@ -1,6 +1,6 @@
-import { EntitiesCollection, SystemEntitiesCollection } from "../collections";
-import { IComponentFilter, ComponentType } from "../component";
-import { IEntity } from "../entity";
+import { EntitiesCollection, SystemEntitiesCollection } from '../collections';
+import { IComponentFilter } from '../component';
+import { Entity } from '../entity';
 /**
  * The system is a class in which all work with the data
  * of the Entity Components takes place.
@@ -42,10 +42,9 @@ import { IEntity } from "../entity";
  *   }
  * }
  */
-export declare abstract class System<TEntity extends IEntity> {
-    includes: ComponentType<any>[];
-    excludes: ComponentType<any>[];
-    withDisabled: boolean;
+export declare abstract class System<TEntity extends Entity> {
+    private _entityCollection;
+    protected get collection(): EntitiesCollection;
     get filter(): IComponentFilter;
     execute(entities: EntitiesCollection, decorator?: IComponentFilter): Promise<void>;
     protected abstract onExecute(entities: SystemEntitiesCollection<TEntity>): void;

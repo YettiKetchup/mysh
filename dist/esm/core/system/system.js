@@ -1,3 +1,10 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { Excludes, Includes, WithDisabled, } from './decorators/system.decorators';
 /**
  * The system is a class in which all work with the data
  * of the Entity Components takes place.
@@ -39,11 +46,12 @@
  *   }
  * }
  */
-export class System {
+export let System = class System {
     constructor() {
-        this.includes = [];
-        this.excludes = [];
-        this.withDisabled = false;
+        this._entityCollection = null;
+    }
+    get collection() {
+        return this._entityCollection;
     }
     get filter() {
         return {
@@ -53,6 +61,7 @@ export class System {
         };
     }
     async execute(entities, decorator) {
+        this._entityCollection = entities;
         const filter = decorator
             ? this.setupFilterDecorator(decorator)
             : this.filter;
@@ -63,10 +72,15 @@ export class System {
         let { includes, excludes, withDisabled } = this;
         includes = [...includes, ...(decorator.includes || [])];
         excludes = [...excludes, ...(decorator.excludes || [])];
-        if (Object.hasOwn(decorator, "withDisabled")) {
+        if (Object.hasOwn(decorator, 'withDisabled')) {
             withDisabled = decorator.withDisabled;
         }
         return { includes, excludes, withDisabled };
     }
-}
+};
+System = __decorate([
+    Includes(),
+    Excludes(),
+    WithDisabled(false)
+], System);
 //# sourceMappingURL=system.js.map

@@ -1,4 +1,4 @@
-import { SystemEntitiesCollection } from "./system-entities.collection";
+import { SystemEntitiesCollection } from './system-entities.collection';
 export class EntitiesCollection {
     constructor() {
         this._entities = [];
@@ -11,9 +11,11 @@ export class EntitiesCollection {
     }
     add(...entities) {
         this._entities.push(...entities);
+        entities.forEach((entity) => entity.onInit());
     }
-    remove(entity) {
-        // this._entities = this._entities.filter((e) => e.id !== entity.id);
+    destroy(entity) {
+        this._entities = this._entities.filter((e) => e.id !== entity.id);
+        entity.onDestroy();
     }
     get(filter) {
         let result = [];

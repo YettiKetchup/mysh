@@ -4,4 +4,6 @@ export enum ObserverType {
   REMOVED,
   ENABLED,
   DISABLED,
+  INITIALIZED,
+  DESTROYED,
 }

@@ -1,7 +1,7 @@
-import { ComponentsCollection } from "../collections";
-import { ObservableComponentWrapper, } from "../component";
-import { EntitySubject } from "../observable";
-import { ObservableEntity } from "./observable.entity";
+import { ComponentsCollection } from '../collections';
+import { ObservableComponentWrapper, } from '../component';
+import { EntitySubject } from '../observable';
+import { ObservableEntity } from './observable.entity';
 export function MixinEntity(Mixin) {
     class Entity extends Mixin {
         constructor() {

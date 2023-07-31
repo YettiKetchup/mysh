@@ -1,5 +1,5 @@
-import { IEntity } from "../entity";
-import { EntityIterationCallback } from "./data/types";
+import { Entity } from '../entity';
+import { EntityIterationCallback } from './data/types';
 
 /**
  * A special collection object that stores Entities
@@ -7,7 +7,7 @@ import { EntityIterationCallback } from "./data/types";
  *
  * Allows you to execute both synchronous and asynchronous code.
  */
-export class SystemEntitiesCollection<TEntity extends IEntity> {
+export class SystemEntitiesCollection<TEntity extends Entity> {
   public get count(): number {
     return this._entities.length;
   }
@@ -27,7 +27,7 @@ export class SystemEntitiesCollection<TEntity extends IEntity> {
    *  // ... do something.
    * });
    */
-  public loop(callback: EntityIterationCallback<IEntity>): void {
+  public loop(callback: EntityIterationCallback<Entity>): void {
     for (let i = 0; i < this._entities.length; i++) {
       callback(this._entities[i], i);
     }

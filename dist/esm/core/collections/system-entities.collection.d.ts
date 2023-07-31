@@ -1,12 +1,12 @@
-import { IEntity } from "../entity";
-import { EntityIterationCallback } from "./data/types";
+import { Entity } from '../entity';
+import { EntityIterationCallback } from './data/types';
 /**
  * A special collection object that stores Entities
  * and allows you to apply some logic to them through cycles.
  *
  * Allows you to execute both synchronous and asynchronous code.
  */
-export declare class SystemEntitiesCollection<TEntity extends IEntity> {
+export declare class SystemEntitiesCollection<TEntity extends Entity> {
     private _entities;
     get count(): number;
     constructor(_entities: TEntity[]);
@@ -23,7 +23,7 @@ export declare class SystemEntitiesCollection<TEntity extends IEntity> {
      *  // ... do something.
      * });
      */
-    loop(callback: EntityIterationCallback<IEntity>): void;
+    loop(callback: EntityIterationCallback<Entity>): void;
     /**
      * Sequentially executes the passed callback with
      * asynchronous code for each entity

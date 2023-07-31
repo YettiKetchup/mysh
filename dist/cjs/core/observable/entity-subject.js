@@ -33,6 +33,40 @@ class EntitySubject {
         return this._observers.filter((observer) => observer.type === type);
     }
     /**
+     * Creates an Observer that watches the addition
+     * of the Entity to the Collection
+     *
+     * @returns
+     * Returns an instance of an EntityObserver that watches all
+     * events of type ObserverType.INITIALIZED
+     *
+     * @example
+     * const observer$: EntityObserver = EntitySubject.onInitialize();
+     *
+     * const collection = EntityStorage.create('game');
+     * const entity = new Entity();
+     * collection.add(entity); // fires the event
+     */
+    static onInitialize() {
+        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.INITIALIZED);
+    }
+    /**
+     * Creates an Observer that monitors the removal
+     * of the Entity from the Collection
+     *
+     * @returns
+     * Returns an instance of an EntityObserver that watches all
+     * events of type ObserverType.REMOVED
+     *
+     * @example
+     * const observer$: EntityObserver = EntitySubject.onDestroy();
+     *
+     * collection.destroy(entity); // fires the event
+     */
+    static onDestroy() {
+        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.DESTROYED);
+    }
+    /**
      * Creating an observer that watches for changes to ObservableEntity.
      *
      * @returns

@@ -1,2 +1,2 @@
-export { sleep } from "./sleep";
-export { uid } from "./uid";
+export { sleep } from './sleep.util';
+export { uid } from './uid.util';

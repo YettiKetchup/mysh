@@ -1,16 +1,46 @@
-import { ComponentType } from "../component";
-import { IEntity } from "../entity";
-import { ObserverType } from "./data/observer-type.enum";
-import { EntityObserver } from "./entity-observer";
+import { ComponentType } from '../component';
+import { Entity } from '../entity';
+import { ObserverType } from './data/observer-type.enum';
+import { EntityObserver } from './entity-observer';
 export declare class EntitySubject {
     static get instance(): EntitySubject;
     private static _instance;
     private _observers;
     register(observer: EntityObserver): void;
     destroy(observer: EntityObserver): void;
-    notify(type: ObserverType, entity: IEntity, watch?: ComponentType<any>): void;
+    notify(type: ObserverType, entity: Entity, watch?: ComponentType<any>): void;
     private getComponentSubjects;
     private getEntitySubjects;
+    /**
+     * Creates an Observer that watches the addition
+     * of the Entity to the Collection
+     *
+     * @returns
+     * Returns an instance of an EntityObserver that watches all
+     * events of type ObserverType.INITIALIZED
+     *
+     * @example
+     * const observer$: EntityObserver = EntitySubject.onInitialize();
+     *
+     * const collection = EntityStorage.create('game');
+     * const entity = new Entity();
+     * collection.add(entity); // fires the event
+     */
+    static onInitialize(): EntityObserver;
+    /**
+     * Creates an Observer that monitors the removal
+     * of the Entity from the Collection
+     *
+     * @returns
+     * Returns an instance of an EntityObserver that watches all
+     * events of type ObserverType.REMOVED
+     *
+     * @example
+     * const observer$: EntityObserver = EntitySubject.onDestroy();
+     *
+     * collection.destroy(entity); // fires the event
+     */
+    static onDestroy(): EntityObserver;
     /**
      * Creating an observer that watches for changes to ObservableEntity.
      *

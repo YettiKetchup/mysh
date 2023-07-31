@@ -1,4 +1,4 @@
-import { Component, ComponentType } from "../component";
+import { Component, ComponentType } from '../component';
 export declare class ComponentsCollection {
     get components(): Component[];
     get count(): number;

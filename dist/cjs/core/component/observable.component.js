@@ -15,8 +15,7 @@ const observable_1 = require("../observable");
  * which will return an instance of this class if the isObservable flag is true.
  */
 class ObservableComponentWrapper {
-    constructor(_subject, entity, component) {
-        this._subject = _subject;
+    constructor(entity, component) {
         this.setAcessors(entity, component);
     }
     setAcessors(entity, component) {
@@ -33,7 +32,7 @@ class ObservableComponentWrapper {
     notify(entity, component) {
         const event = observable_1.ObserverType.CHANGED;
         const componentType = component.constructor;
-        this._subject.notify(event, entity, componentType);
+        observable_1.EntitySubject.instance.notify(event, entity, componentType);
     }
 }
 exports.ObservableComponentWrapper = ObservableComponentWrapper;

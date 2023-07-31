@@ -1,6 +1,6 @@
-import { Component, ComponentType } from "../component";
-import { EntitySubject, ObserverType } from "../observable";
-import { IEntity } from "./data/interfaces";
+import { Component, ComponentType } from '../component';
+import { EntitySubject, ObserverType } from '../observable';
+import { Entity } from './entity';
 
 export class ObservableEntity {
   /**
@@ -20,10 +20,10 @@ export class ObservableEntity {
 
     const event = value ? ObserverType.ENABLED : ObserverType.DISABLED;
 
-    this._subject.notify(event, this._entity);
+    EntitySubject.instance.notify(event, this._entity);
   }
 
-  constructor(private _entity: IEntity, private _subject: EntitySubject) {}
+  constructor(private _entity: Entity) {}
 
   /**
    * Adds a new component to the Entity and fire ObserverType.ADDED event.
@@ -55,7 +55,7 @@ export class ObservableEntity {
     this._entity.add(component);
     const event = ObserverType.ADDED;
     const componentType = component.constructor;
-    this._subject.notify(event, this._entity, componentType);
+    EntitySubject.instance.notify(event, this._entity, componentType);
   }
 
   /**
@@ -85,7 +85,7 @@ export class ObservableEntity {
   ): TComponent {
     const component = this._entity.remove(componentType);
     const event = ObserverType.REMOVED;
-    this._subject.notify(event, this._entity, componentType);
+    EntitySubject.instance.notify(event, this._entity, componentType);
     return component;
   }
 }

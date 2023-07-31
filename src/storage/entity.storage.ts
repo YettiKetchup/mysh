@@ -1,9 +1,9 @@
-import { EntitiesCollection } from "../core/collections";
+import { EntitiesCollection } from '../core/collections';
 
 export class EntityStorage {
-  private _collections: Map<string, EntitiesCollection> = new Map();
+  private static _collections: Map<string, EntitiesCollection> = new Map();
 
-  public get(key: string): EntitiesCollection {
+  public static get(key: string): EntitiesCollection {
     try {
       return this._collections.get(key) as EntitiesCollection;
     } catch (e) {
@@ -11,7 +11,7 @@ export class EntityStorage {
     }
   }
 
-  public create(key: string): EntitiesCollection {
+  public static create(key: string): EntitiesCollection {
     if (this._collections.has(key)) {
       return this.get(key) as EntitiesCollection;
     }
@@ -21,15 +21,15 @@ export class EntityStorage {
     return collection;
   }
 
-  public destroy(key: string): void {
+  public static destroy(key: string): void {
     this._collections.delete(key);
   }
 
-  public clearAll(): void {
+  public static clearAll(): void {
     this._collections = new Map();
   }
 
-  public combine(
+  public static combine(
     key: string,
     storages: EntitiesCollection[]
   ): EntitiesCollection {

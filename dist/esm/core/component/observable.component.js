@@ -1,4 +1,4 @@
-import { ObserverType } from "../observable";
+import { EntitySubject, ObserverType } from '../observable';
 /**
  * A wrapper around a Component that makes it observable.
  * On initialization, creates accessors for each field of the source object.
@@ -12,8 +12,7 @@ import { ObserverType } from "../observable";
  * which will return an instance of this class if the isObservable flag is true.
  */
 export class ObservableComponentWrapper {
-    constructor(_subject, entity, component) {
-        this._subject = _subject;
+    constructor(entity, component) {
         this.setAcessors(entity, component);
     }
     setAcessors(entity, component) {
@@ -30,7 +29,7 @@ export class ObservableComponentWrapper {
     notify(entity, component) {
         const event = ObserverType.CHANGED;
         const componentType = component.constructor;
-        this._subject.notify(event, entity, componentType);
+        EntitySubject.instance.notify(event, entity, componentType);
     }
 }
 //# sourceMappingURL=observable.component.js.map

@@ -1,9 +1,9 @@
-import { IComponentFilter } from "../component";
-import { IEntity } from "../entity";
-import { SystemEntitiesCollection } from "./system-entities.collection";
+import { IComponentFilter } from '../component';
+import { Entity } from '../entity';
+import { SystemEntitiesCollection } from './system-entities.collection';
 
 export class EntitiesCollection {
-  public get entities(): IEntity[] {
+  public get entities(): Entity[] {
     return this._entities;
   }
 
@@ -11,18 +11,20 @@ export class EntitiesCollection {
     return this._entities.length;
   }
 
-  private _entities: IEntity[] = [];
+  private _entities: Entity[] = [];
 
-  public add(...entities: IEntity[]): void {
+  public add(...entities: Entity[]): void {
     this._entities.push(...entities);
+    entities.forEach((entity) => entity.onInit());
   }
 
-  public remove(entity: IEntity): void {
-    // this._entities = this._entities.filter((e) => e.id !== entity.id);
+  public destroy(entity: Entity): void {
+    this._entities = this._entities.filter((e) => e.id !== entity.id);
+    entity.onDestroy();
   }
 
-  public get(filter: IComponentFilter): SystemEntitiesCollection<IEntity> {
-    let result: IEntity[] = [];
+  public get(filter: IComponentFilter): SystemEntitiesCollection<Entity> {
+    let result: Entity[] = [];
     let index = 0;
     let entity = this._entities[index];
 

@@ -1,8 +1,8 @@
-import { ComponentType } from "../component";
-import { IEntity } from "../entity";
-import { ObserverType } from "./data/observer-type.enum";
-import { ObserverConditionPipe, ObserverSubscribeCallback } from "./data/types";
-import { EntitySubject } from "./entity-subject";
+import { ComponentType } from '../component';
+import { Entity } from '../entity';
+import { ObserverType } from './data/observer-type.enum';
+import { ObserverConditionPipe, ObserverSubscribeCallback } from './data/types';
+import { EntitySubject } from './entity-subject';
 
 export class EntityObserver {
   public get type(): ObserverType {
@@ -36,13 +36,13 @@ export class EntityObserver {
     this._subject.destroy(this);
   }
 
-  public execute(entity: IEntity): void {
+  public execute(entity: Entity): void {
     if (this.isCanExecute(entity)) {
       this._callback(entity);
     }
   }
 
-  private isCanExecute(entity: IEntity): boolean {
+  private isCanExecute(entity: Entity): boolean {
     for (let i = 0; i < this._pipes.length; i++) {
       const isCan = this._pipes[i](entity);
       if (!isCan) return false;
