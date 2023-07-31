@@ -34,6 +34,11 @@ export class ChainBuilder {
     return this;
   }
 
+  public withDelay(delay: number): ChainBuilder {
+    this._chain.links[this._current].delay = delay;
+    return this;
+  }
+
   public build(): Chain {
     return this._chain;
   }
