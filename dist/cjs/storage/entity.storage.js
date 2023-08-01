@@ -5,12 +5,10 @@ const collections_1 = require("../core/collections");
 class EntityStorage {
     static { this._collections = new Map(); }
     static get(key) {
-        try {
-            return this._collections.get(key);
-        }
-        catch (e) {
-            throw new Error(`Collection ${key} didn't exist!`);
-        }
+        let collection = this._collections.get(key);
+        if (!collection)
+            collection = this.create(key);
+        return collection;
     }
     static create(key) {
         if (this._collections.has(key)) {
