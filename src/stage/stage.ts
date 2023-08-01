@@ -35,5 +35,14 @@ export abstract class Stage implements IStage {
     this._createdModules.forEach((module) => module.destroy());
   }
 
+  /**
+   * Use to preload assets or data.
+   *
+   * @example
+   * public async preload(): Promise<void> {
+   *  const data = await fetch(api);
+   *  // ...do something.
+   * }
+   */
   public abstract preload(): Promise<void>;
 }
