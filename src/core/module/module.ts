@@ -1,5 +1,5 @@
 export interface IModule {
   init(): void;
-  update(deltaTime?: number): void;
+  update(dt: number): void;
   destroy(): void;
 }
