@@ -6,4 +6,5 @@ export * from './core/observable';
 export * from './core/system';
 export * from './core/module';
 export * from './storage';
+export * from './stage';
 export * from './tools/utils';
