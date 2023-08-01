@@ -1,5 +1,3 @@
-export interface IModule {
-    init(): void;
-    update(dt: number): void;
-    destroy(): void;
+import { IDestroyable, IInitable, IUpdatable } from './data/interfaces';
+export interface IModule extends IInitable, IUpdatable, IDestroyable {
 }
