@@ -1,3 +1,9 @@
-import { IDestroyable, IInitable, IUpdatable } from './data/interfaces';
+import { IModule } from './data/interfaces';
 
-export interface IModule extends IInitable, IUpdatable, IDestroyable {}
+export abstract class Module implements IModule {
+  public abstract init(): void;
+
+  public abstract update(dt: number): void;
+
+  public abstract destroy(): void;
+}

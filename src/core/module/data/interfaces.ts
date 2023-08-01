@@ -9,3 +9,5 @@ export interface IUpdatable {
 export interface IDestroyable {
   destroy(): void;
 }
+
+export interface IModule extends IInitable, IUpdatable, IDestroyable {}
