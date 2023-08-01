@@ -4,11 +4,11 @@ export class EntityStorage {
   private static _collections: Map<string, EntitiesCollection> = new Map();
 
   public static get(key: string): EntitiesCollection {
-    try {
-      return this._collections.get(key) as EntitiesCollection;
-    } catch (e) {
-      throw new Error(`Collection ${key} didn't exist!`);
-    }
+    let collection = this._collections.get(key) as EntitiesCollection;
+
+    if (!collection) collection = this.create(key);
+
+    return collection;
   }
 
   public static create(key: string): EntitiesCollection {
