@@ -1,7 +1,7 @@
-import { ModuleConstructor } from '../data/types';
+import { Module } from '../../core/module';
 
-export function Modules(...moduleTypes: ModuleConstructor[]) {
+export function Modules(...modules: Module[]) {
   return function (constructor: Function) {
-    constructor.prototype.modules = moduleTypes;
+    constructor.prototype.modules = modules;
   };
 }
