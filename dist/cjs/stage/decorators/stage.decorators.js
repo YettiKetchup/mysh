@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Modules = void 0;
-function Modules(...moduleTypes) {
+function Modules(...modules) {
     return function (constructor) {
-        constructor.prototype.modules = moduleTypes;
+        constructor.prototype.modules = modules;
     };
 }
 exports.Modules = Modules;

@@ -1,6 +1,6 @@
-export function Modules(...moduleTypes) {
+export function Modules(...modules) {
     return function (constructor) {
-        constructor.prototype.modules = moduleTypes;
+        constructor.prototype.modules = modules;
     };
 }
 //# sourceMappingURL=stage.decorators.js.map
