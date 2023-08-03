@@ -1,38 +1,33 @@
 import { IModule } from '../core/module';
 import { IStage } from './data/interfaces';
-import { ModuleConstructor } from './data/types';
 import { Modules } from './decorators/stage.decorators';
 
 @Modules()
 export abstract class Stage implements IStage {
-  private _createdModules: IModule[] = [];
-
   public init(): void {
-    const { modules } = this as unknown as Stage & {
-      modules: ModuleConstructor[];
-    };
+    const modules = this.getModules();
 
-    this._createdModules = modules.map((module) => {
-      const createdModule = new module();
-      createdModule.init();
-      return createdModule;
+    modules.forEach((module) => {
+      module.init();
     });
   }
 
   public update(dt: number): void {
-    const { length } = this._createdModules;
+    const modules = this.getModules();
+    const { length } = modules;
 
     /**
      * Use for loop instead of forEach because for loop is faster.
      *  What is critical when updating.
      */
     for (let i = 0; i < length; i++) {
-      this._createdModules[i].update(dt);
+      modules[i].update(dt);
     }
   }
 
   public destroy(): void {
-    this._createdModules.forEach((module) => module.destroy());
+    const modules = this.getModules();
+    modules.forEach((module) => module.destroy());
   }
 
   /**
@@ -45,4 +40,12 @@ export abstract class Stage implements IStage {
    * }
    */
   public abstract preload(): Promise<void>;
+
+  private getModules(): IModule[] {
+    const { modules } = this as unknown as Stage & {
+      modules: IModule[];
+    };
+
+    return modules || [];
+  }
 }

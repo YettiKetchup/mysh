@@ -6,29 +6,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { Modules } from './decorators/stage.decorators';
 export let Stage = class Stage {
-    constructor() {
-        this._createdModules = [];
-    }
     init() {
-        const { modules } = this;
-        this._createdModules = modules.map((module) => {
-            const createdModule = new module();
-            createdModule.init();
-            return createdModule;
+        const modules = this.getModules();
+        modules.forEach((module) => {
+            module.init();
         });
     }
     update(dt) {
-        const { length } = this._createdModules;
+        const modules = this.getModules();
+        const { length } = modules;
         /**
          * Use for loop instead of forEach because for loop is faster.
          *  What is critical when updating.
          */
         for (let i = 0; i < length; i++) {
-            this._createdModules[i].update(dt);
+            modules[i].update(dt);
         }
     }
     destroy() {
-        this._createdModules.forEach((module) => module.destroy());
+        const modules = this.getModules();
+        modules.forEach((module) => module.destroy());
+    }
+    getModules() {
+        const { modules } = this;
+        return modules || [];
     }
 };
 Stage = __decorate([

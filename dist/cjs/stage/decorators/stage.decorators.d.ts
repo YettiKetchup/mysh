@@ -1,2 +1,2 @@
-import { ModuleConstructor } from '../data/types';
-export declare function Modules(...moduleTypes: ModuleConstructor[]): (constructor: Function) => void;
+import { Module } from '../../core/module';
+export declare function Modules(...modules: Module[]): (constructor: Function) => void;

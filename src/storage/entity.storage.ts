@@ -30,12 +30,13 @@ export class EntityStorage {
   }
 
   public static combine(
-    key: string,
-    storages: EntitiesCollection[]
+    name: string,
+    storageKeys: string[]
   ): EntitiesCollection {
-    const newCollection = this.create(key);
+    const newCollection = this.create(name);
 
-    storages.forEach((collection: EntitiesCollection) => {
+    storageKeys.forEach((key: string) => {
+      const collection: EntitiesCollection = this.get(key);
       newCollection.add(...collection.entities);
     });
 

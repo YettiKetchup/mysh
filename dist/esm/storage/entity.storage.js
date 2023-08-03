@@ -21,9 +21,10 @@ export class EntityStorage {
     static clearAll() {
         this._collections = new Map();
     }
-    static combine(key, storages) {
-        const newCollection = this.create(key);
-        storages.forEach((collection) => {
+    static combine(name, storageKeys) {
+        const newCollection = this.create(name);
+        storageKeys.forEach((key) => {
+            const collection = this.get(key);
             newCollection.add(...collection.entities);
         });
         return newCollection;
