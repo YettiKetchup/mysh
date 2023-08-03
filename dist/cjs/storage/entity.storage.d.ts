@@ -5,5 +5,5 @@ export declare class EntityStorage {
     static create(key: string): EntitiesCollection;
     static destroy(key: string): void;
     static clearAll(): void;
-    static combine(key: string, storages: EntitiesCollection[]): EntitiesCollection;
+    static combine(name: string, storageKeys: string[]): EntitiesCollection;
 }
