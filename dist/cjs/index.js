@@ -23,5 +23,6 @@ __exportStar(require("./core/system"), exports);
 __exportStar(require("./core/module"), exports);
 __exportStar(require("./storage"), exports);
 __exportStar(require("./stage"), exports);
+__exportStar(require("./caching"), exports);
 __exportStar(require("./tools/utils"), exports);
 //# sourceMappingURL=index.js.map
