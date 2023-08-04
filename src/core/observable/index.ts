@@ -1,6 +1,6 @@
-export { EntityObserver } from "./entity-observer";
-export { EntitySubject } from "./entity-subject";
-export { ObserverType } from "./data/observer-type.enum";
+export { EntityObserver } from './entity-observer';
+export { EntitySubject } from './entity-subject';
+export { ObserverType } from './data/observer-type.enum';
 
-export { includes } from "./pipes/includes.pipe";
-export { excludes } from "./pipes/excludes.pipe";
+export { includesPipe } from './pipes/includes.pipe';
+export { excludesPipe } from './pipes/excludes.pipe';

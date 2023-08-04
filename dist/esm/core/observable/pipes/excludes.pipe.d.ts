@@ -1,3 +1,3 @@
 import { ComponentType } from '../../component';
 import { ObserverConditionPipe } from '../data/types';
-export declare function excludes(...types: ComponentType<any>[]): ObserverConditionPipe;
+export declare function excludesPipe(...types: ComponentType<any>[]): ObserverConditionPipe;

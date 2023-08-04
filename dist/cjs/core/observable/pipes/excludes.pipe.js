@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.excludes = void 0;
-function excludes(...types) {
+exports.excludesPipe = void 0;
+function excludesPipe(...types) {
     return (entity) => !entity.has(types);
 }
-exports.excludes = excludes;
+exports.excludesPipe = excludesPipe;
 //# sourceMappingURL=excludes.pipe.js.map
