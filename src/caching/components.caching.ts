@@ -48,6 +48,14 @@ export class ComponentsCaching {
     return null;
   }
 
+  public static has<T extends Component>(
+    entity: Entity,
+    componentType: ComponentType<T>
+  ): boolean {
+    const cache = this._cached.get(entity.id) || [];
+    return !!this.find(componentType, cache);
+  }
+
   public static clear(entity: Entity): void {
     this._cached.set(entity.id, []);
   }
