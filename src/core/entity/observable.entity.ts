@@ -23,6 +23,14 @@ export class ObservableEntity {
     EntitySubject.instance.notify(event, this._entity);
   }
 
+  /**
+   * Returns an instance of the Entity
+   * from which the ObservableEntity was retrieved.
+   */
+  public get instance(): Entity {
+    return this._entity;
+  }
+
   constructor(private _entity: Entity) {}
 
   /**

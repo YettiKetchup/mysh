@@ -16,6 +16,13 @@ export class ObservableEntity {
         const event = value ? ObserverType.ENABLED : ObserverType.DISABLED;
         EntitySubject.instance.notify(event, this._entity);
     }
+    /**
+     * Returns an instance of the Entity
+     * from which the ObservableEntity was retrieved.
+     */
+    get instance() {
+        return this._entity;
+    }
     constructor(_entity) {
         this._entity = _entity;
     }
