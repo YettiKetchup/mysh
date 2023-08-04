@@ -21,6 +21,10 @@ export class ComponentsCaching {
         }
         return null;
     }
+    static has(entity, componentType) {
+        const cache = this._cached.get(entity.id) || [];
+        return !!this.find(componentType, cache);
+    }
     static clear(entity) {
         this._cached.set(entity.id, []);
     }
