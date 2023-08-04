@@ -12,6 +12,11 @@ export declare class ObservableEntity {
      */
     get visible(): boolean;
     set visible(value: boolean);
+    /**
+     * Returns an instance of the Entity
+     * from which the ObservableEntity was retrieved.
+     */
+    get instance(): Entity;
     constructor(_entity: Entity);
     /**
      * Adds a new component to the Entity and fire ObserverType.ADDED event.
