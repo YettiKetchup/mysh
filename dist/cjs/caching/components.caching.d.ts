@@ -5,5 +5,6 @@ export declare class ComponentsCaching {
     static cache<T extends Component>(entity: Entity, componentType: ComponentType<T>, isObservable?: boolean): void;
     static from<T extends Component>(entity: Entity, componentType: ComponentType<T>, isObservable?: boolean): T | null;
     static clear(entity: Entity): void;
+    private static getMethod;
     private static find;
 }

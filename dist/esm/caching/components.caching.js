@@ -1,7 +1,7 @@
 export class ComponentsCaching {
     static { this._cached = new Map(); }
     static cache(entity, componentType, isObservable = false) {
-        const remove = isObservable ? entity.observable().remove : entity.remove;
+        const remove = this.getMethod(entity, 'remove', isObservable);
         const component = remove(componentType);
         const cache = this._cached.get(entity.id) || [];
         cache.push(component);
@@ -10,7 +10,7 @@ export class ComponentsCaching {
     static from(entity, componentType, isObservable = false) {
         if (!this._cached.has(entity.id))
             return null;
-        const add = isObservable ? entity.observable().add : entity.add;
+        const add = this.getMethod(entity, 'add', isObservable);
         const cache = this._cached.get(entity.id) || [];
         const component = this.find(componentType, cache);
         if (component) {
@@ -23,6 +23,14 @@ export class ComponentsCaching {
     }
     static clear(entity) {
         this._cached.set(entity.id, []);
+    }
+    static getMethod(entity, type, isObservable) {
+        let method = entity[type].bind(entity);
+        if (isObservable) {
+            const entity$ = entity.observable();
+            method = entity$[type].bind(this);
+        }
+        return method;
     }
     static find(componentType, components) {
         return (components.find((component) => component instanceof componentType) || null);

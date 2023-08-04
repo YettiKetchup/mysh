@@ -9,7 +9,12 @@ export class ComponentsCaching {
     componentType: ComponentType<T>,
     isObservable: boolean = false
   ): void {
-    const remove = isObservable ? entity.observable().remove : entity.remove;
+    const remove = this.getMethod(
+      entity,
+      'remove',
+      isObservable
+    ) as typeof entity.remove;
+
     const component: T = remove(componentType);
     const cache = this._cached.get(entity.id) || [];
 
@@ -24,7 +29,12 @@ export class ComponentsCaching {
   ): T | null {
     if (!this._cached.has(entity.id)) return null;
 
-    const add = isObservable ? entity.observable().add : entity.add;
+    const add = this.getMethod(
+      entity,
+      'add',
+      isObservable
+    ) as typeof entity.add;
+
     const cache = this._cached.get(entity.id) || [];
     const component = this.find(componentType, cache);
 
@@ -40,6 +50,21 @@ export class ComponentsCaching {
 
   public static clear(entity: Entity): void {
     this._cached.set(entity.id, []);
+  }
+
+  private static getMethod(
+    entity: Entity,
+    type: 'remove' | 'add',
+    isObservable: boolean
+  ) {
+    let method = entity[type].bind(entity);
+
+    if (isObservable) {
+      const entity$ = entity.observable();
+      method = entity$[type].bind(this);
+    }
+
+    return method;
   }
 
   private static find<T extends Component>(
