@@ -49,6 +49,7 @@ import { Excludes, Includes, WithDisabled, } from './decorators/system.decorator
 export let System = class System {
     constructor() {
         this._entityCollection = null;
+        this._entities = null;
     }
     get collection() {
         return this._entityCollection;
@@ -65,8 +66,13 @@ export let System = class System {
         const filter = decorator
             ? this.setupFilterDecorator(decorator)
             : this.filter;
-        const filtered = entities.get(filter);
-        await this.onExecute(filtered);
+        this._entities = entities.get(filter);
+        await this.onExecute(this._entities);
+    }
+    async destroy() {
+        if (this._entities) {
+            await this.onDestroy(this._entities);
+        }
     }
     setupFilterDecorator(decorator) {
         let { includes, excludes, withDisabled } = this;
@@ -77,6 +83,7 @@ export let System = class System {
         }
         return { includes, excludes, withDisabled };
     }
+    onDestroy(entities) { }
 };
 System = __decorate([
     Includes(),

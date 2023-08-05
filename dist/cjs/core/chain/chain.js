@@ -18,6 +18,11 @@ class Chain {
             await this.executeItem(link);
         }
     }
+    async destroy() {
+        for (const link of this._links) {
+            await link.system.destroy();
+        }
+    }
     async executeItem(link) {
         const { system, includes, excludes, withDisabled } = link;
         const decorator = { includes, excludes, withDisabled };

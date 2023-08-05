@@ -7,5 +7,6 @@ export declare class Chain {
     constructor(_entities: EntitiesCollection);
     add(link: IChainLink): void;
     execute(): Promise<void>;
+    destroy(): Promise<void>;
     private executeItem;
 }
