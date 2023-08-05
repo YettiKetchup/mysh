@@ -53,6 +53,7 @@ import {
 @WithDisabled(false)
 export abstract class System<TEntity extends Entity> {
   private _entityCollection: EntitiesCollection | null = null;
+  private _entities: SystemEntitiesCollection<TEntity> | null = null;
 
   protected get collection(): EntitiesCollection {
     return this._entityCollection as EntitiesCollection;
@@ -75,9 +76,16 @@ export abstract class System<TEntity extends Entity> {
     const filter = decorator
       ? this.setupFilterDecorator(decorator)
       : this.filter;
-    const filtered = entities.get(filter) as SystemEntitiesCollection<TEntity>;
 
-    await this.onExecute(filtered);
+    this._entities = entities.get(filter) as SystemEntitiesCollection<TEntity>;
+
+    await this.onExecute(this._entities);
+  }
+
+  public async destroy(): Promise<void> {
+    if (this._entities) {
+      await this.onDestroy(this._entities);
+    }
   }
 
   protected abstract onExecute(
@@ -96,4 +104,6 @@ export abstract class System<TEntity extends Entity> {
 
     return { includes, excludes, withDisabled };
   }
+
+  protected onDestroy(entities: SystemEntitiesCollection<TEntity>): void {}
 }

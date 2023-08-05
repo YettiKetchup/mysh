@@ -21,6 +21,12 @@ export class Chain {
     }
   }
 
+  public async destroy(): Promise<void> {
+    for (const link of this._links) {
+      await link.system.destroy();
+    }
+  }
+
   private async executeItem(link: IChainLink): Promise<void> {
     const { system, includes, excludes, withDisabled } = link;
     const decorator = { includes, excludes, withDisabled };
