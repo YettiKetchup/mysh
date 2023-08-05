@@ -1,7 +1,10 @@
 {
   "name": "mysh",
-  "version": "1.1.0",
+  "version": "1.1.1",
+  "author": "Daniil Stolpnik",
   "description": "A typescript library that implements ECS architecture for games",
+  "license": "ISC",
+  "homepage": "https://github.com/YettiKetchup/mysh",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -13,8 +16,6 @@
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
     "start": "npm run start dist/esm/index.js"
   },
-  "author": "Daniil Stolpnik",
-  "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.4.0",
     "typescript": "^5.1.6"

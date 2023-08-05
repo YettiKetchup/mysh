@@ -52,6 +52,7 @@ const system_decorators_1 = require("./decorators/system.decorators");
 let System = exports.System = class System {
     constructor() {
         this._entityCollection = null;
+        this._entities = null;
     }
     get collection() {
         return this._entityCollection;
@@ -68,8 +69,13 @@ let System = exports.System = class System {
         const filter = decorator
             ? this.setupFilterDecorator(decorator)
             : this.filter;
-        const filtered = entities.get(filter);
-        await this.onExecute(filtered);
+        this._entities = entities.get(filter);
+        await this.onExecute(this._entities);
+    }
+    async destroy() {
+        if (this._entities) {
+            await this.onDestroy(this._entities);
+        }
     }
     setupFilterDecorator(decorator) {
         let { includes, excludes, withDisabled } = this;
@@ -80,6 +86,7 @@ let System = exports.System = class System {
         }
         return { includes, excludes, withDisabled };
     }
+    onDestroy(entities) { }
 };
 exports.System = System = __decorate([
     (0, system_decorators_1.Includes)(),
