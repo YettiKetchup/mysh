@@ -1,6 +1,6 @@
 {
   "name": "mysh",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "Daniil Stolpnik",
   "description": "A typescript library that implements ECS architecture for games",
   "license": "ISC",
