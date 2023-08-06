@@ -25,10 +25,10 @@ class Entity {
         return this._collection.components;
     }
     onInit() {
-        observable_1.EntitySubject.instance.notify(observable_1.ObserverType.INITIALIZED, this);
+        observable_1.EntitySubject.notify(observable_1.ObserverType.INITIALIZED, this);
     }
     onDestroy() {
-        observable_1.EntitySubject.instance.notify(observable_1.ObserverType.DESTROYED, this);
+        observable_1.EntitySubject.notify(observable_1.ObserverType.DESTROYED, this);
     }
     add(component) {
         if (this._collection.has(component.constructor)) {

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EntityObserver = void 0;
+const entity_subject_1 = require("./entity-subject");
 class EntityObserver {
     get type() {
         return this._type;
@@ -8,8 +9,7 @@ class EntityObserver {
     get watch() {
         return this._watch;
     }
-    constructor(_subject, _type, _watch) {
-        this._subject = _subject;
+    constructor(_type, _watch) {
         this._type = _type;
         this._watch = _watch;
         this._pipes = [];
@@ -21,10 +21,10 @@ class EntityObserver {
     }
     subscribe(callback) {
         this._callback = callback;
-        this._subject.register(this);
+        entity_subject_1.EntitySubject.register(this);
     }
     unsubscribe() {
-        this._subject.destroy(this);
+        entity_subject_1.EntitySubject.destroy(this);
     }
     execute(entity) {
         if (this.isCanExecute(entity)) {

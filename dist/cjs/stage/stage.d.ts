@@ -1,7 +1,10 @@
 import { IStage } from './data/interfaces';
 export declare abstract class Stage implements IStage {
+    preInit(): void;
     init(): void;
+    postInit(): void;
     update(dt: number): void;
+    postUpdate(): void;
     destroy(): void;
     /**
      * Use to preload assets or data.

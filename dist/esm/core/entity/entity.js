@@ -22,10 +22,10 @@ export class Entity {
         return this._collection.components;
     }
     onInit() {
-        EntitySubject.instance.notify(ObserverType.INITIALIZED, this);
+        EntitySubject.notify(ObserverType.INITIALIZED, this);
     }
     onDestroy() {
-        EntitySubject.instance.notify(ObserverType.DESTROYED, this);
+        EntitySubject.notify(ObserverType.DESTROYED, this);
     }
     add(component) {
         if (this._collection.has(component.constructor)) {

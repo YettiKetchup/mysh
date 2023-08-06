@@ -1,3 +1,4 @@
+import { EntitySubject } from './entity-subject';
 export class EntityObserver {
     get type() {
         return this._type;
@@ -5,8 +6,7 @@ export class EntityObserver {
     get watch() {
         return this._watch;
     }
-    constructor(_subject, _type, _watch) {
-        this._subject = _subject;
+    constructor(_type, _watch) {
         this._type = _type;
         this._watch = _watch;
         this._pipes = [];
@@ -18,10 +18,10 @@ export class EntityObserver {
     }
     subscribe(callback) {
         this._callback = callback;
-        this._subject.register(this);
+        EntitySubject.register(this);
     }
     unsubscribe() {
-        this._subject.destroy(this);
+        EntitySubject.destroy(this);
     }
     execute(entity) {
         if (this.isCanExecute(entity)) {

@@ -1,4 +1,5 @@
 import { Component, ComponentType } from '../component';
+import { EntitySubject } from '../observable';
 import { Entity } from './entity';
 export declare class ObservableEntity {
     private _entity;
@@ -12,6 +13,7 @@ export declare class ObservableEntity {
      */
     get visible(): boolean;
     set visible(value: boolean);
+    get subject(): EntitySubject;
     /**
      * Returns an instance of the Entity
      * from which the ObservableEntity was retrieved.

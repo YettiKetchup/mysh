@@ -17,7 +17,10 @@ class ObservableEntity {
     set visible(value) {
         this._entity.visible = value;
         const event = value ? observable_1.ObserverType.ENABLED : observable_1.ObserverType.DISABLED;
-        observable_1.EntitySubject.instance.notify(event, this._entity);
+        observable_1.EntitySubject.notify(event, this._entity);
+    }
+    get subject() {
+        return observable_1.EntitySubject;
     }
     /**
      * Returns an instance of the Entity
@@ -59,7 +62,7 @@ class ObservableEntity {
         this._entity.add(component);
         const event = observable_1.ObserverType.ADDED;
         const componentType = component.constructor;
-        observable_1.EntitySubject.instance.notify(event, this._entity, componentType);
+        observable_1.EntitySubject.notify(event, this._entity, componentType);
     }
     /**
      * Removes and returns a component of the specified type.
@@ -86,7 +89,7 @@ class ObservableEntity {
     remove(componentType) {
         const component = this._entity.remove(componentType);
         const event = observable_1.ObserverType.REMOVED;
-        observable_1.EntitySubject.instance.notify(event, this._entity, componentType);
+        observable_1.EntitySubject.notify(event, this._entity, componentType);
         return component;
     }
 }
