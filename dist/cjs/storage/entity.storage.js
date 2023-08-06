@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EntityStorage = void 0;
 const collections_1 = require("../core/collections");
+const combined_entities_collection_1 = require("../core/collections/combined-entities.collection");
 class EntityStorage {
     static { this._collections = new Map(); }
     static get(key) {
@@ -24,13 +25,16 @@ class EntityStorage {
     static clearAll() {
         this._collections = new Map();
     }
-    static combine(name, storageKeys) {
-        const newCollection = this.create(name);
-        storageKeys.forEach((key) => {
-            const collection = this.get(key);
-            newCollection.add(...collection.entities);
-        });
-        return newCollection;
+    static combine(key, storageKeys) {
+        if (this._collections.has(key)) {
+            return this.get(key);
+        }
+        else {
+            const collections = storageKeys.map((key) => this.get(key));
+            const collection = new combined_entities_collection_1.CombinedEntitiesCollection(collections);
+            this._collections.set(key, collection);
+            return collection;
+        }
     }
 }
 exports.EntityStorage = EntityStorage;

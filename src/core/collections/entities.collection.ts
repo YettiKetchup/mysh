@@ -11,7 +11,7 @@ export class EntitiesCollection {
     return this._entities.length;
   }
 
-  private _entities: Entity[] = [];
+  protected _entities: Entity[] = [];
 
   public add(...entities: Entity[]): void {
     this._entities.push(...entities);

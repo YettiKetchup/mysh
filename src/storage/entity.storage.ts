@@ -1,4 +1,5 @@
 import { EntitiesCollection } from '../core/collections';
+import { CombinedEntitiesCollection } from '../core/collections/combined-entities.collection';
 
 export class EntityStorage {
   private static _collections: Map<string, EntitiesCollection> = new Map();
@@ -30,16 +31,18 @@ export class EntityStorage {
   }
 
   public static combine(
-    name: string,
+    key: string,
     storageKeys: string[]
   ): EntitiesCollection {
-    const newCollection = this.create(name);
+    if (this._collections.has(key)) {
+      return this.get(key);
+    } else {
+      const collections = storageKeys.map((key) => this.get(key));
+      const collection = new CombinedEntitiesCollection(collections);
 
-    storageKeys.forEach((key: string) => {
-      const collection: EntitiesCollection = this.get(key);
-      newCollection.add(...collection.entities);
-    });
+      this._collections.set(key, collection);
 
-    return newCollection;
+      return collection;
+    }
   }
 }
