@@ -17,7 +17,6 @@ export class EntityObserver {
   private _callback: ObserverSubscribeCallback = () => {};
 
   constructor(
-    private _subject: EntitySubject,
     private _type: ObserverType,
     private _watch?: ComponentType<any>
   ) {}
@@ -29,11 +28,11 @@ export class EntityObserver {
 
   public subscribe(callback: ObserverSubscribeCallback): void {
     this._callback = callback;
-    this._subject.register(this);
+    EntitySubject.register(this);
   }
 
   public unsubscribe(): void {
-    this._subject.destroy(this);
+    EntitySubject.destroy(this);
   }
 
   public execute(entity: Entity): void {

@@ -38,6 +38,6 @@ export class ObservableComponentWrapper<TComponent extends Component>
     const event = ObserverType.CHANGED;
     const componentType = component.constructor;
 
-    EntitySubject.instance.notify(event, entity, componentType);
+    EntitySubject.notify(event, entity, componentType);
   }
 }

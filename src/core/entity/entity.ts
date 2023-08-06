@@ -32,11 +32,11 @@ export class Entity {
   private _collection: ComponentsCollection = new ComponentsCollection();
 
   public onInit(): void {
-    EntitySubject.instance.notify(ObserverType.INITIALIZED, this);
+    EntitySubject.notify(ObserverType.INITIALIZED, this);
   }
 
   public onDestroy(): void {
-    EntitySubject.instance.notify(ObserverType.DESTROYED, this);
+    EntitySubject.notify(ObserverType.DESTROYED, this);
   }
 
   public add(component: Component): void {

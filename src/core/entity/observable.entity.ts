@@ -20,7 +20,11 @@ export class ObservableEntity {
 
     const event = value ? ObserverType.ENABLED : ObserverType.DISABLED;
 
-    EntitySubject.instance.notify(event, this._entity);
+    EntitySubject.notify(event, this._entity);
+  }
+
+  public get subject(): EntitySubject {
+    return EntitySubject;
   }
 
   /**
@@ -63,7 +67,7 @@ export class ObservableEntity {
     this._entity.add(component);
     const event = ObserverType.ADDED;
     const componentType = component.constructor;
-    EntitySubject.instance.notify(event, this._entity, componentType);
+    EntitySubject.notify(event, this._entity, componentType);
   }
 
   /**
@@ -93,7 +97,7 @@ export class ObservableEntity {
   ): TComponent {
     const component = this._entity.remove(componentType);
     const event = ObserverType.REMOVED;
-    EntitySubject.instance.notify(event, this._entity, componentType);
+    EntitySubject.notify(event, this._entity, componentType);
     return component;
   }
 }

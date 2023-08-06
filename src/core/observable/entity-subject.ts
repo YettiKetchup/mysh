@@ -4,26 +4,17 @@ import { ObserverType } from './data/observer-type.enum';
 import { EntityObserver } from './entity-observer';
 
 export class EntitySubject {
-  public static get instance(): EntitySubject {
-    if (!this._instance) {
-      this._instance = new EntitySubject();
-    }
+  private static _observers: EntityObserver[] = [];
 
-    return this._instance;
-  }
-
-  private static _instance: EntitySubject | null = null;
-  private _observers: EntityObserver[] = [];
-
-  public register(observer: EntityObserver): void {
+  public static register(observer: EntityObserver): void {
     this._observers.push(observer);
   }
 
-  public destroy(observer: EntityObserver): void {
+  public static destroy(observer: EntityObserver): void {
     this._observers = this._observers.filter((item) => item !== observer);
   }
 
-  public notify(
+  public static notify(
     type: ObserverType,
     entity: Entity,
     watch?: ComponentType<any>
@@ -35,7 +26,7 @@ export class EntitySubject {
     observers.forEach((observer) => observer.execute(entity));
   }
 
-  private getComponentSubjects(
+  private static getComponentSubjects(
     type: ObserverType,
     watch: ComponentType<any>
   ): EntityObserver[] {
@@ -44,7 +35,7 @@ export class EntitySubject {
     );
   }
 
-  private getEntitySubjects(type: ObserverType): EntityObserver[] {
+  private static getEntitySubjects(type: ObserverType): EntityObserver[] {
     return this._observers.filter((observer) => observer.type === type);
   }
 
@@ -64,7 +55,7 @@ export class EntitySubject {
    * collection.add(entity); // fires the event
    */
   public static onInitialize(): EntityObserver {
-    return new EntityObserver(this.instance, ObserverType.INITIALIZED);
+    return new EntityObserver(ObserverType.INITIALIZED);
   }
 
   /**
@@ -81,7 +72,7 @@ export class EntitySubject {
    * collection.destroy(entity); // fires the event
    */
   public static onDestroy(): EntityObserver {
-    return new EntityObserver(this.instance, ObserverType.DESTROYED);
+    return new EntityObserver(ObserverType.DESTROYED);
   }
 
   /**
@@ -101,7 +92,7 @@ export class EntitySubject {
    * entity$.active = true;
    */
   public static onEnable(): EntityObserver {
-    return new EntityObserver(this.instance, ObserverType.ENABLED);
+    return new EntityObserver(ObserverType.ENABLED);
   }
 
   /**
@@ -121,7 +112,7 @@ export class EntitySubject {
    * entity$.active = false;
    */
   public static onDisable(): EntityObserver {
-    return new EntityObserver(this.instance, ObserverType.DISABLED);
+    return new EntityObserver(ObserverType.DISABLED);
   }
 
   /**
@@ -145,7 +136,7 @@ export class EntitySubject {
    * entity$.add(new StaminaComponent(100));
    */
   public static onAdd(type: ComponentType<any>): EntityObserver {
-    return new EntityObserver(this.instance, ObserverType.ADDED, type);
+    return new EntityObserver(ObserverType.ADDED, type);
   }
 
   /**
@@ -169,7 +160,7 @@ export class EntitySubject {
    * entity$.remove(StaminaComponent);
    */
   public static onRemove(type: ComponentType<any>): EntityObserver {
-    return new EntityObserver(this.instance, ObserverType.REMOVED, type);
+    return new EntityObserver(ObserverType.REMOVED, type);
   }
 
   /**
@@ -194,6 +185,6 @@ export class EntitySubject {
    * stamina.value += 10;
    */
   public static onChange(type: ComponentType<any>): EntityObserver {
-    return new EntityObserver(this.instance, ObserverType.CHANGED, type);
+    return new EntityObserver(ObserverType.CHANGED, type);
   }
 }
