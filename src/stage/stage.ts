@@ -1,14 +1,31 @@
 import { IModule } from '../core/module';
+import { sleep } from '../tools/utils';
 import { IStage } from './data/interfaces';
 import { Modules } from './decorators/stage.decorators';
 
 @Modules()
 export abstract class Stage implements IStage {
+  public preInit(): void {
+    const modules = this.getModules();
+
+    modules.forEach((module) => {
+      module.preInit();
+    });
+  }
+
   public init(): void {
     const modules = this.getModules();
 
     modules.forEach((module) => {
       module.init();
+    });
+  }
+
+  public postInit(): void {
+    const modules = this.getModules();
+
+    modules.forEach((module) => {
+      module.postInit();
     });
   }
 
@@ -23,6 +40,14 @@ export abstract class Stage implements IStage {
     for (let i = 0; i < length; i++) {
       modules[i].update(dt);
     }
+  }
+
+  public postUpdate(): void {
+    const modules = this.getModules();
+
+    modules.forEach((module) => {
+      module.postUpdate();
+    });
   }
 
   public destroy(): void {

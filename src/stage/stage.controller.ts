@@ -37,7 +37,9 @@ export class StageController {
     await stage?.preload();
     this.current?.destroy();
     this.current = stage;
+    this.current?.preInit();
     this.current?.init();
+    this.current?.postInit();
   }
 
   /**
@@ -52,5 +54,6 @@ export class StageController {
    */
   public static update(dt: number): void {
     this.current?.update(dt);
+    this.current?.postUpdate();
   }
 }
