@@ -7,7 +7,7 @@ import { EntityIterationCallback } from './data/types';
  *
  * Allows you to execute both synchronous and asynchronous code.
  */
-export class SystemEntitiesCollection<TEntity extends Entity> {
+export class Filtered<TEntity extends Entity = Entity> {
   public get count(): number {
     return this._entities.length;
   }
