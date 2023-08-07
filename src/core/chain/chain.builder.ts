@@ -1,7 +1,8 @@
 import { EntitiesCollection } from '../collections';
 import { ComponentType } from '../component';
-import { System } from '../system';
+import { System, SystemConstructor, SystemsCaching } from '../system';
 import { Chain } from '.';
+import { SystemData } from './data/types';
 
 export class ChainBuilder {
   protected _chain: Chain = new Chain(this._entities);
@@ -12,7 +13,14 @@ export class ChainBuilder {
 
   constructor(private _entities: EntitiesCollection) {}
 
-  public withSystem(system: System<any>): ChainBuilder {
+  public withSystem<T extends System<any>, K extends keyof T>(
+    systemConstructor: SystemConstructor<T>,
+    data?: SystemData<T, K>
+  ): ChainBuilder {
+    const system = SystemsCaching.create(systemConstructor);
+
+    if (data) this.addData(system, data);
+
     this._chain.add({
       system: system,
     });
@@ -41,5 +49,14 @@ export class ChainBuilder {
 
   public build(): Chain {
     return this._chain;
+  }
+
+  private addData(system: System<any>, data: SystemData<any, any>): void {
+    for (let key in data) {
+      Object.defineProperty(system, key, {
+        value: data[key],
+        writable: false,
+      });
+    }
   }
 }
