@@ -29,7 +29,7 @@ export class ObservableComponentWrapper {
     notify(entity, component) {
         const event = ObserverType.CHANGED;
         const componentType = component.constructor;
-        EntitySubject.instance.notify(event, entity, componentType);
+        EntitySubject.notify(event, entity, componentType);
     }
 }
 //# sourceMappingURL=observable.component.js.map

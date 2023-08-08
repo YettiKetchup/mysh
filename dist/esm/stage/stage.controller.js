@@ -30,7 +30,9 @@ export class StageController {
         await stage?.preload();
         this.current?.destroy();
         this.current = stage;
+        this.current?.preInit();
         this.current?.init();
+        this.current?.postInit();
     }
     /**
      * Updates all scenes and their modules.
@@ -44,6 +46,7 @@ export class StageController {
      */
     static update(dt) {
         this.current?.update(dt);
+        this.current?.postUpdate();
     }
 }
 //# sourceMappingURL=stage.controller.js.map

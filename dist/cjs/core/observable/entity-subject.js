@@ -4,32 +4,23 @@ exports.EntitySubject = void 0;
 const observer_type_enum_1 = require("./data/observer-type.enum");
 const entity_observer_1 = require("./entity-observer");
 class EntitySubject {
-    constructor() {
-        this._observers = [];
-    }
-    static get instance() {
-        if (!this._instance) {
-            this._instance = new EntitySubject();
-        }
-        return this._instance;
-    }
-    static { this._instance = null; }
-    register(observer) {
+    static { this._observers = []; }
+    static register(observer) {
         this._observers.push(observer);
     }
-    destroy(observer) {
+    static destroy(observer) {
         this._observers = this._observers.filter((item) => item !== observer);
     }
-    notify(type, entity, watch) {
+    static notify(type, entity, watch) {
         const observers = watch
             ? this.getComponentSubjects(type, watch)
             : this.getEntitySubjects(type);
         observers.forEach((observer) => observer.execute(entity));
     }
-    getComponentSubjects(type, watch) {
+    static getComponentSubjects(type, watch) {
         return this._observers.filter((observer) => observer.type === type && observer.watch === watch);
     }
-    getEntitySubjects(type) {
+    static getEntitySubjects(type) {
         return this._observers.filter((observer) => observer.type === type);
     }
     /**
@@ -48,7 +39,7 @@ class EntitySubject {
      * collection.add(entity); // fires the event
      */
     static onInitialize() {
-        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.INITIALIZED);
+        return new entity_observer_1.EntityObserver(observer_type_enum_1.ObserverType.INITIALIZED);
     }
     /**
      * Creates an Observer that monitors the removal
@@ -64,7 +55,7 @@ class EntitySubject {
      * collection.destroy(entity); // fires the event
      */
     static onDestroy() {
-        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.DESTROYED);
+        return new entity_observer_1.EntityObserver(observer_type_enum_1.ObserverType.DESTROYED);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -83,7 +74,7 @@ class EntitySubject {
      * entity$.active = true;
      */
     static onEnable() {
-        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.ENABLED);
+        return new entity_observer_1.EntityObserver(observer_type_enum_1.ObserverType.ENABLED);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -102,7 +93,7 @@ class EntitySubject {
      * entity$.active = false;
      */
     static onDisable() {
-        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.DISABLED);
+        return new entity_observer_1.EntityObserver(observer_type_enum_1.ObserverType.DISABLED);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -125,7 +116,7 @@ class EntitySubject {
      * entity$.add(new StaminaComponent(100));
      */
     static onAdd(type) {
-        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.ADDED, type);
+        return new entity_observer_1.EntityObserver(observer_type_enum_1.ObserverType.ADDED, type);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -148,7 +139,7 @@ class EntitySubject {
      * entity$.remove(StaminaComponent);
      */
     static onRemove(type) {
-        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.REMOVED, type);
+        return new entity_observer_1.EntityObserver(observer_type_enum_1.ObserverType.REMOVED, type);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -172,7 +163,7 @@ class EntitySubject {
      * stamina.value += 10;
      */
     static onChange(type) {
-        return new entity_observer_1.EntityObserver(this.instance, observer_type_enum_1.ObserverType.CHANGED, type);
+        return new entity_observer_1.EntityObserver(observer_type_enum_1.ObserverType.CHANGED, type);
     }
 }
 exports.EntitySubject = EntitySubject;

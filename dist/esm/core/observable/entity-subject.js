@@ -1,32 +1,23 @@
 import { ObserverType } from './data/observer-type.enum';
 import { EntityObserver } from './entity-observer';
 export class EntitySubject {
-    constructor() {
-        this._observers = [];
-    }
-    static get instance() {
-        if (!this._instance) {
-            this._instance = new EntitySubject();
-        }
-        return this._instance;
-    }
-    static { this._instance = null; }
-    register(observer) {
+    static { this._observers = []; }
+    static register(observer) {
         this._observers.push(observer);
     }
-    destroy(observer) {
+    static destroy(observer) {
         this._observers = this._observers.filter((item) => item !== observer);
     }
-    notify(type, entity, watch) {
+    static notify(type, entity, watch) {
         const observers = watch
             ? this.getComponentSubjects(type, watch)
             : this.getEntitySubjects(type);
         observers.forEach((observer) => observer.execute(entity));
     }
-    getComponentSubjects(type, watch) {
+    static getComponentSubjects(type, watch) {
         return this._observers.filter((observer) => observer.type === type && observer.watch === watch);
     }
-    getEntitySubjects(type) {
+    static getEntitySubjects(type) {
         return this._observers.filter((observer) => observer.type === type);
     }
     /**
@@ -45,7 +36,7 @@ export class EntitySubject {
      * collection.add(entity); // fires the event
      */
     static onInitialize() {
-        return new EntityObserver(this.instance, ObserverType.INITIALIZED);
+        return new EntityObserver(ObserverType.INITIALIZED);
     }
     /**
      * Creates an Observer that monitors the removal
@@ -61,7 +52,7 @@ export class EntitySubject {
      * collection.destroy(entity); // fires the event
      */
     static onDestroy() {
-        return new EntityObserver(this.instance, ObserverType.DESTROYED);
+        return new EntityObserver(ObserverType.DESTROYED);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -80,7 +71,7 @@ export class EntitySubject {
      * entity$.active = true;
      */
     static onEnable() {
-        return new EntityObserver(this.instance, ObserverType.ENABLED);
+        return new EntityObserver(ObserverType.ENABLED);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -99,7 +90,7 @@ export class EntitySubject {
      * entity$.active = false;
      */
     static onDisable() {
-        return new EntityObserver(this.instance, ObserverType.DISABLED);
+        return new EntityObserver(ObserverType.DISABLED);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -122,7 +113,7 @@ export class EntitySubject {
      * entity$.add(new StaminaComponent(100));
      */
     static onAdd(type) {
-        return new EntityObserver(this.instance, ObserverType.ADDED, type);
+        return new EntityObserver(ObserverType.ADDED, type);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -145,7 +136,7 @@ export class EntitySubject {
      * entity$.remove(StaminaComponent);
      */
     static onRemove(type) {
-        return new EntityObserver(this.instance, ObserverType.REMOVED, type);
+        return new EntityObserver(ObserverType.REMOVED, type);
     }
     /**
      * Creating an observer that watches for changes to ObservableEntity.
@@ -169,7 +160,7 @@ export class EntitySubject {
      * stamina.value += 10;
      */
     static onChange(type) {
-        return new EntityObserver(this.instance, ObserverType.CHANGED, type);
+        return new EntityObserver(ObserverType.CHANGED, type);
     }
 }
 //# sourceMappingURL=entity-subject.js.map

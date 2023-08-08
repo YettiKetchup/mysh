@@ -1,6 +1,6 @@
 import { IComponentFilter } from '../component';
 import { Entity } from '../entity';
-import { SystemEntitiesCollection } from './system-entities.collection';
+import { Filtered } from './filtered.collection';
 
 export class EntitiesCollection {
   public get entities(): Entity[] {
@@ -23,7 +23,7 @@ export class EntitiesCollection {
     entity.onDestroy();
   }
 
-  public get(filter: IComponentFilter): SystemEntitiesCollection<Entity> {
+  public get(filter: IComponentFilter): Filtered<Entity> {
     let result: Entity[] = [];
     let index = 0;
     let entity = this._entities[index];
@@ -42,6 +42,6 @@ export class EntitiesCollection {
       entity = this._entities[index];
     }
 
-    return new SystemEntitiesCollection(result);
+    return new Filtered(result);
   }
 }

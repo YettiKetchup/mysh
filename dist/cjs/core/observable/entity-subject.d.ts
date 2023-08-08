@@ -3,14 +3,12 @@ import { Entity } from '../entity';
 import { ObserverType } from './data/observer-type.enum';
 import { EntityObserver } from './entity-observer';
 export declare class EntitySubject {
-    static get instance(): EntitySubject;
-    private static _instance;
-    private _observers;
-    register(observer: EntityObserver): void;
-    destroy(observer: EntityObserver): void;
-    notify(type: ObserverType, entity: Entity, watch?: ComponentType<any>): void;
-    private getComponentSubjects;
-    private getEntitySubjects;
+    private static _observers;
+    static register(observer: EntityObserver): void;
+    static destroy(observer: EntityObserver): void;
+    static notify(type: ObserverType, entity: Entity, watch?: ComponentType<any>): void;
+    private static getComponentSubjects;
+    private static getEntitySubjects;
     /**
      * Creates an Observer that watches the addition
      * of the Entity to the Collection

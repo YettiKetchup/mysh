@@ -6,10 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { Modules } from './decorators/stage.decorators';
 export let Stage = class Stage {
+    preInit() {
+        const modules = this.getModules();
+        modules.forEach((module) => {
+            module.preInit();
+        });
+    }
     init() {
         const modules = this.getModules();
         modules.forEach((module) => {
             module.init();
+        });
+    }
+    postInit() {
+        const modules = this.getModules();
+        modules.forEach((module) => {
+            module.postInit();
         });
     }
     update(dt) {
@@ -22,6 +34,12 @@ export let Stage = class Stage {
         for (let i = 0; i < length; i++) {
             modules[i].update(dt);
         }
+    }
+    postUpdate() {
+        const modules = this.getModules();
+        modules.forEach((module) => {
+            module.postUpdate();
+        });
     }
     destroy() {
         const modules = this.getModules();

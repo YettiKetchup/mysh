@@ -1,7 +1,7 @@
 import { IComponentFilter } from '../component';
 import { Entity } from '../entity';
 import { EntitiesCollection } from './entities.collection';
-import { SystemEntitiesCollection } from './system-entities.collection';
+import { Filtered } from './filtered.collection';
 
 export class CombinedEntitiesCollection extends EntitiesCollection {
   constructor(private _colelctions: EntitiesCollection[]) {
@@ -28,9 +28,7 @@ export class CombinedEntitiesCollection extends EntitiesCollection {
     }
   }
 
-  public override get(
-    filter: IComponentFilter
-  ): SystemEntitiesCollection<Entity> {
+  public override get(filter: IComponentFilter): Filtered<Entity> {
     this._entities = this.getCombinedEntities();
     return super.get(filter);
   }

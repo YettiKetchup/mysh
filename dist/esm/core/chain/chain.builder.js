@@ -1,13 +1,16 @@
+import { SystemsCaching } from '../system';
 import { Chain } from '.';
 export class ChainBuilder {
+    constructor() {
+        this._chain = new Chain();
+    }
     get _current() {
         return this._chain.links.length - 1;
     }
-    constructor(_entities) {
-        this._entities = _entities;
-        this._chain = new Chain(this._entities);
-    }
-    withSystem(system) {
+    withSystem(systemConstructor, data) {
+        const system = SystemsCaching.create(systemConstructor);
+        if (data)
+            this.addData(system, data);
         this._chain.add({
             system: system,
         });
@@ -31,6 +34,14 @@ export class ChainBuilder {
     }
     build() {
         return this._chain;
+    }
+    addData(system, data) {
+        for (let key in data) {
+            Object.defineProperty(system, key, {
+                value: data[key],
+                writable: false,
+            });
+        }
     }
 }
 //# sourceMappingURL=chain.builder.js.map

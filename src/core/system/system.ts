@@ -1,6 +1,7 @@
-import { EntitiesCollection, SystemEntitiesCollection } from '../collections';
-import { IComponentFilter, ComponentType } from '../component';
+import { EntitiesCollection, Filtered } from '../collections';
+import { IComponentFilter } from '../component';
 import { Entity } from '../entity';
+
 import {
   Excludes,
   Includes,
@@ -51,9 +52,9 @@ import {
 @Includes()
 @Excludes()
 @WithDisabled(false)
-export abstract class System<TEntity extends Entity> {
+export abstract class System<TEntity extends Entity = Entity> {
   private _entityCollection: EntitiesCollection | null = null;
-  private _entities: SystemEntitiesCollection<TEntity> | null = null;
+  private _entities: Filtered<TEntity> | null = null;
 
   protected get collection(): EntitiesCollection {
     return this._entityCollection as EntitiesCollection;
@@ -77,7 +78,7 @@ export abstract class System<TEntity extends Entity> {
       ? this.setupFilterDecorator(decorator)
       : this.filter;
 
-    this._entities = entities.get(filter) as SystemEntitiesCollection<TEntity>;
+    this._entities = entities.get(filter) as Filtered<TEntity>;
 
     await this.onExecute(this._entities);
   }
@@ -88,9 +89,7 @@ export abstract class System<TEntity extends Entity> {
     }
   }
 
-  protected abstract onExecute(
-    entities: SystemEntitiesCollection<TEntity>
-  ): void;
+  protected abstract onExecute(entities: Filtered<TEntity>): void;
 
   private setupFilterDecorator(decorator: IComponentFilter): IComponentFilter {
     let { includes, excludes, withDisabled } = this as any;
@@ -105,5 +104,5 @@ export abstract class System<TEntity extends Entity> {
     return { includes, excludes, withDisabled };
   }
 
-  protected onDestroy(entities: SystemEntitiesCollection<TEntity>): void {}
+  protected onDestroy(entities: Filtered<TEntity>): void {}
 }

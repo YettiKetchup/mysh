@@ -14,7 +14,10 @@ export class ObservableEntity {
     set visible(value) {
         this._entity.visible = value;
         const event = value ? ObserverType.ENABLED : ObserverType.DISABLED;
-        EntitySubject.instance.notify(event, this._entity);
+        EntitySubject.notify(event, this._entity);
+    }
+    get subject() {
+        return EntitySubject;
     }
     /**
      * Returns an instance of the Entity
@@ -56,7 +59,7 @@ export class ObservableEntity {
         this._entity.add(component);
         const event = ObserverType.ADDED;
         const componentType = component.constructor;
-        EntitySubject.instance.notify(event, this._entity, componentType);
+        EntitySubject.notify(event, this._entity, componentType);
     }
     /**
      * Removes and returns a component of the specified type.
@@ -83,7 +86,7 @@ export class ObservableEntity {
     remove(componentType) {
         const component = this._entity.remove(componentType);
         const event = ObserverType.REMOVED;
-        EntitySubject.instance.notify(event, this._entity, componentType);
+        EntitySubject.notify(event, this._entity, componentType);
         return component;
     }
 }
