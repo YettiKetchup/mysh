@@ -9,15 +9,13 @@ export class Chain {
     return this._links;
   }
 
-  constructor(private _entities: EntitiesCollection) {}
-
   public add(link: IChainLink) {
     this._links.push(link);
   }
 
-  public async execute(): Promise<void> {
+  public async execute(entities: EntitiesCollection): Promise<void> {
     for (const link of this._links) {
-      await this.executeItem(link);
+      await this.executeItem(link, entities);
     }
   }
 
@@ -27,7 +25,10 @@ export class Chain {
     }
   }
 
-  private async executeItem(link: IChainLink): Promise<void> {
+  private async executeItem(
+    link: IChainLink,
+    entities: EntitiesCollection
+  ): Promise<void> {
     const { system, includes, excludes, withDisabled } = link;
     const decorator = { includes, excludes, withDisabled };
 
@@ -35,6 +36,6 @@ export class Chain {
       await sleep(link.delay);
     }
 
-    await system.execute(this._entities, decorator);
+    await system.execute(entities, decorator);
   }
 }

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EntitiesCollection = void 0;
-const system_entities_collection_1 = require("./system-entities.collection");
+const filtered_collection_1 = require("./filtered.collection");
 class EntitiesCollection {
     constructor() {
         this._entities = [];
@@ -35,7 +35,7 @@ class EntitiesCollection {
             index += 1;
             entity = this._entities[index];
         }
-        return new system_entities_collection_1.SystemEntitiesCollection(result);
+        return new filtered_collection_1.Filtered(result);
     }
 }
 exports.EntitiesCollection = EntitiesCollection;

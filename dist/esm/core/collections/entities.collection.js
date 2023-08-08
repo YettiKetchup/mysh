@@ -1,4 +1,4 @@
-import { SystemEntitiesCollection } from './system-entities.collection';
+import { Filtered } from './filtered.collection';
 export class EntitiesCollection {
     constructor() {
         this._entities = [];
@@ -32,7 +32,7 @@ export class EntitiesCollection {
             index += 1;
             entity = this._entities[index];
         }
-        return new SystemEntitiesCollection(result);
+        return new Filtered(result);
     }
 }
 //# sourceMappingURL=entities.collection.js.map
