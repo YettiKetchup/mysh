@@ -12,6 +12,10 @@ export class Filtered<TEntity extends Entity = Entity> {
     return this._entities.length;
   }
 
+  public get list(): TEntity[] {
+    return this._entities;
+  }
+
   constructor(private _entities: TEntity[]) {}
 
   /**
