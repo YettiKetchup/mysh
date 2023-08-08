@@ -6,7 +6,7 @@ import { EntityIterationCallback } from './data/types';
  *
  * Allows you to execute both synchronous and asynchronous code.
  */
-export declare class SystemEntitiesCollection<TEntity extends Entity> {
+export declare class SystemEntitiesCollection<TEntity extends Entity = Entity> {
     private _entities;
     get count(): number;
     constructor(_entities: TEntity[]);

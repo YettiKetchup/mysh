@@ -1,16 +1,15 @@
-import { EntitiesCollection } from '../collections';
 import { ComponentType } from '../component';
-import { System } from '../system';
+import { System, SystemConstructor } from '../system';
 import { Chain } from '.';
+import { SystemData } from './data/types';
 export declare class ChainBuilder {
-    private _entities;
     protected _chain: Chain;
     private get _current();
-    constructor(_entities: EntitiesCollection);
-    withSystem(system: System<any>): ChainBuilder;
+    withSystem<T extends System<any>, K extends keyof T>(systemConstructor: SystemConstructor<T>, data?: SystemData<T, K>): ChainBuilder;
     withIncludes(...components: ComponentType<any>[]): ChainBuilder;
     withExcludes(...components: ComponentType<any>[]): ChainBuilder;
     withDisabled(withDisabled: boolean): ChainBuilder;
     withDelay(delay: number): ChainBuilder;
     build(): Chain;
+    private addData;
 }

@@ -1,18 +1,17 @@
 import { sleep } from '../../tools/utils';
 export class Chain {
+    constructor() {
+        this._links = [];
+    }
     get links() {
         return this._links;
-    }
-    constructor(_entities) {
-        this._entities = _entities;
-        this._links = [];
     }
     add(link) {
         this._links.push(link);
     }
-    async execute() {
+    async execute(entities) {
         for (const link of this._links) {
-            await this.executeItem(link);
+            await this.executeItem(link, entities);
         }
     }
     async destroy() {
@@ -20,13 +19,13 @@ export class Chain {
             await link.system.destroy();
         }
     }
-    async executeItem(link) {
+    async executeItem(link, entities) {
         const { system, includes, excludes, withDisabled } = link;
         const decorator = { includes, excludes, withDisabled };
         if (link.delay) {
             await sleep(link.delay);
         }
-        await system.execute(this._entities, decorator);
+        await system.execute(entities, decorator);
     }
 }
 //# sourceMappingURL=chain.js.map

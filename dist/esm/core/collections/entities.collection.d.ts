@@ -1,11 +1,11 @@
 import { IComponentFilter } from '../component';
 import { Entity } from '../entity';
-import { SystemEntitiesCollection } from './system-entities.collection';
+import { Filtered } from './filtered.collection';
 export declare class EntitiesCollection {
     get entities(): Entity[];
     get count(): number;
     protected _entities: Entity[];
     add(...entities: Entity[]): void;
     destroy(entity: Entity): void;
-    get(filter: IComponentFilter): SystemEntitiesCollection<Entity>;
+    get(filter: IComponentFilter): Filtered<Entity>;
 }

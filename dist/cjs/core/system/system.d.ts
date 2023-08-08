@@ -1,4 +1,4 @@
-import { EntitiesCollection, SystemEntitiesCollection } from '../collections';
+import { EntitiesCollection, Filtered } from '../collections';
 import { IComponentFilter } from '../component';
 import { Entity } from '../entity';
 /**
@@ -42,14 +42,14 @@ import { Entity } from '../entity';
  *   }
  * }
  */
-export declare abstract class System<TEntity extends Entity> {
+export declare abstract class System<TEntity extends Entity = Entity> {
     private _entityCollection;
     private _entities;
     protected get collection(): EntitiesCollection;
     get filter(): IComponentFilter;
     execute(entities: EntitiesCollection, decorator?: IComponentFilter): Promise<void>;
     destroy(): Promise<void>;
-    protected abstract onExecute(entities: SystemEntitiesCollection<TEntity>): void;
+    protected abstract onExecute(entities: Filtered<TEntity>): void;
     private setupFilterDecorator;
-    protected onDestroy(entities: SystemEntitiesCollection<TEntity>): void;
+    protected onDestroy(entities: Filtered<TEntity>): void;
 }
