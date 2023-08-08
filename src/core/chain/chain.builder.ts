@@ -1,17 +1,14 @@
-import { EntitiesCollection } from '../collections';
 import { ComponentType } from '../component';
 import { System, SystemConstructor, SystemsCaching } from '../system';
 import { Chain } from '.';
 import { SystemData } from './data/types';
 
 export class ChainBuilder {
-  protected _chain: Chain = new Chain(this._entities);
+  protected _chain: Chain = new Chain();
 
   private get _current(): number {
     return this._chain.links.length - 1;
   }
-
-  constructor(private _entities: EntitiesCollection) {}
 
   public withSystem<T extends System<any>, K extends keyof T>(
     systemConstructor: SystemConstructor<T>,
