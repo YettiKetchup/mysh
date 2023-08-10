@@ -1,5 +1,5 @@
-import { EntitiesCollection } from '../core/collections';
-import { CombinedEntitiesCollection } from '../core/collections/combined-entities.collection';
+import { EntitiesCollection } from '../collections';
+import { CombinedEntitiesCollection } from '../collections/combined-entities.collection';
 
 export class EntityStorage {
   private static _collections: Map<string, EntitiesCollection> = new Map();

@@ -1,4 +1,4 @@
-import { IModule } from '../../core/module';
+import { IModule } from '../../module';
 
 export interface IPreloadable {
   preload(): Promise<void>;

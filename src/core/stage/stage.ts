@@ -1,18 +1,9 @@
-import { IModule } from '../core/module';
-import { sleep } from '../tools/utils';
+import { IModule } from '../module';
 import { IStage } from './data/interfaces';
 import { Modules } from './decorators/stage.decorators';
 
 @Modules()
 export abstract class Stage implements IStage {
-  public preInit(): void {
-    const modules = this.getModules();
-
-    modules.forEach((module) => {
-      module.preInit();
-    });
-  }
-
   public init(): void {
     const modules = this.getModules();
 

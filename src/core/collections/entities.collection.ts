@@ -15,7 +15,10 @@ export class EntitiesCollection {
 
   public add(...entities: Entity[]): void {
     this._entities.push(...entities);
-    entities.forEach((entity) => entity.onInit());
+    entities.forEach((entity) => {
+      entity.collection = this;
+      entity.onInit();
+    });
   }
 
   public destroy(entity: Entity): void {

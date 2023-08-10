@@ -1,4 +1,4 @@
-import { Module } from '../../core/module';
+import { Module } from '../../module';
 
 export function Modules(...modules: Module[]) {
   return function (constructor: Function) {

@@ -1,5 +1,5 @@
-import { Component, ComponentType } from '../core/component';
-import { Entity } from '../core/entity';
+import { Component, ComponentType } from '../component';
+import { Entity } from '../entity';
 
 export class ComponentsCaching {
   private static _cached: Map<string, Component[]> = new Map();
