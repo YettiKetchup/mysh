@@ -54,6 +54,10 @@ export class Entity {
     }
 
     this._components.add(component);
+
+    if (this._components.count == 1) {
+      EntitySubject.notify(WatchFor.ReadyToWork, this);
+    }
   }
 
   public get<T extends Component>(

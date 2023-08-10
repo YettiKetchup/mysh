@@ -5,5 +5,6 @@ export enum WatchFor {
   Enabled,
   Disabled,
   Initialized,
+  ReadyToWork,
   Destroyed,
 }
