@@ -4,6 +4,8 @@ import { Modules } from './decorators/stage.decorators';
 
 @Modules()
 export abstract class Stage implements IStage {
+  public preInit(): void {}
+
   public init(): void {
     const modules = this.getModules();
 

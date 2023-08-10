@@ -4,4 +4,8 @@ export interface IPreloadable {
   preload(): Promise<void>;
 }
 
-export interface IStage extends IModule, IPreloadable {}
+export interface IPreInitable {
+  preInit(): void;
+}
+
+export interface IStage extends IModule, IPreloadable, IPreInitable {}
