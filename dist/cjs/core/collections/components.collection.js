@@ -5,7 +5,7 @@ class ComponentsCollection {
     constructor() {
         this._components = [];
     }
-    get components() {
+    get items() {
         return this._components;
     }
     get count() {
@@ -20,7 +20,7 @@ class ComponentsCollection {
     }
     remove(type) {
         const component = this.get(type);
-        this._components = this.components.filter((component) => component.constructor !== type);
+        this._components = this.items.filter((component) => component.constructor !== type);
         return component ? component : null;
     }
     has(type) {

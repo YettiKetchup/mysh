@@ -1,17 +1,14 @@
-import { EntitiesCollection } from "../collections";
+import { EntitiesCollection } from '../collections';
+import { CombinedEntitiesCollection } from '../collections/combined-entities.collection';
 export class EntityStorage {
-    constructor() {
-        this._collections = new Map();
+    static { this._collections = new Map(); }
+    static get(key) {
+        let collection = this._collections.get(key);
+        if (!collection)
+            collection = this.create(key);
+        return collection;
     }
-    get(key) {
-        try {
-            return this._collections.get(key);
-        }
-        catch (e) {
-            throw new Error(`Collection ${key} didn't exist!`);
-        }
-    }
-    create(key) {
+    static create(key) {
         if (this._collections.has(key)) {
             return this.get(key);
         }
@@ -19,18 +16,22 @@ export class EntityStorage {
         this._collections.set(key, collection);
         return collection;
     }
-    destroy(key) {
+    static destroy(key) {
         this._collections.delete(key);
     }
-    clearAll() {
+    static clearAll() {
         this._collections = new Map();
     }
-    combine(key, storages) {
-        const newCollection = this.create(key);
-        storages.forEach((collection) => {
-            newCollection.add(...collection.entities);
-        });
-        return newCollection;
+    static combine(key, storageKeys) {
+        if (this._collections.has(key)) {
+            return this.get(key);
+        }
+        else {
+            const collections = storageKeys.map((key) => this.get(key));
+            const collection = new CombinedEntitiesCollection(collections);
+            this._collections.set(key, collection);
+            return collection;
+        }
     }
 }
 //# sourceMappingURL=entity.storage.js.map

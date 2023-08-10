@@ -1,4 +1,4 @@
-import { EntitySubject, ObserverType } from '../observable';
+import { EntitySubject, WatchFor } from '../observable';
 /**
  * A wrapper around a Component that makes it observable.
  * On initialization, creates accessors for each field of the source object.
@@ -27,7 +27,7 @@ export class ObservableComponentWrapper {
         }
     }
     notify(entity, component) {
-        const event = ObserverType.CHANGED;
+        const event = WatchFor.Changed;
         const componentType = component.constructor;
         EntitySubject.notify(event, entity, componentType);
     }
