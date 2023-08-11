@@ -42,6 +42,9 @@ class Entity {
             throw new Error(`Entity already contains ${component.constructor.name}`);
         }
         this._components.add(component);
+        if (this._components.count == 1) {
+            observable_1.EntitySubject.notify(observable_1.WatchFor.ReadyToWork, this);
+        }
     }
     get(type, isObservable = false) {
         try {

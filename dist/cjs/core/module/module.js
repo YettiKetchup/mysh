@@ -11,13 +11,14 @@ class Module {
     get collection() {
         return this._colelction;
     }
-    constructor(collection) {
+    constructor(_key) {
+        this._key = _key;
         this._colelction = null;
         this._observers = [];
         this._events = [];
-        this._colelction = storage_1.EntityStorage.get(collection);
     }
     init() {
+        this._colelction = storage_1.EntityStorage.get(this._key);
         this.listenEntities();
         this.listenEvents();
         this.runSystems(system_1.Lifecycle.Init);

@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Stage = void 0;
 const stage_decorators_1 = require("./decorators/stage.decorators");
 let Stage = exports.Stage = class Stage {
+    preInit() { }
     init() {
         const modules = this.getModules();
         modules.forEach((module) => {

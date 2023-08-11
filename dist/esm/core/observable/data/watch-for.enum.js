@@ -6,6 +6,7 @@ export var WatchFor;
     WatchFor[WatchFor["Enabled"] = 3] = "Enabled";
     WatchFor[WatchFor["Disabled"] = 4] = "Disabled";
     WatchFor[WatchFor["Initialized"] = 5] = "Initialized";
-    WatchFor[WatchFor["Destroyed"] = 6] = "Destroyed";
+    WatchFor[WatchFor["ReadyToWork"] = 6] = "ReadyToWork";
+    WatchFor[WatchFor["Destroyed"] = 7] = "Destroyed";
 })(WatchFor || (WatchFor = {}));
 //# sourceMappingURL=watch-for.enum.js.map

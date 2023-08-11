@@ -5,5 +5,6 @@ export declare enum WatchFor {
     Enabled = 3,
     Disabled = 4,
     Initialized = 5,
-    Destroyed = 6
+    ReadyToWork = 6,
+    Destroyed = 7
 }

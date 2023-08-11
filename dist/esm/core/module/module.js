@@ -8,13 +8,14 @@ export class Module {
     get collection() {
         return this._colelction;
     }
-    constructor(collection) {
+    constructor(_key) {
+        this._key = _key;
         this._colelction = null;
         this._observers = [];
         this._events = [];
-        this._colelction = EntityStorage.get(collection);
     }
     init() {
+        this._colelction = EntityStorage.get(this._key);
         this.listenEntities();
         this.listenEvents();
         this.runSystems(Lifecycle.Init);

@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { Modules } from './decorators/stage.decorators';
 export let Stage = class Stage {
+    preInit() { }
     init() {
         const modules = this.getModules();
         modules.forEach((module) => {

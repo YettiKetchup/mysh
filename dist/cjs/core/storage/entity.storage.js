@@ -26,15 +26,10 @@ class EntityStorage {
         this._collections = new Map();
     }
     static combine(key, storageKeys) {
-        if (this._collections.has(key)) {
-            return this.get(key);
-        }
-        else {
-            const collections = storageKeys.map((key) => this.get(key));
-            const collection = new combined_entities_collection_1.CombinedEntitiesCollection(collections);
-            this._collections.set(key, collection);
-            return collection;
-        }
+        const collections = storageKeys.map((key) => this.get(key));
+        const collection = new combined_entities_collection_1.CombinedEntitiesCollection(collections);
+        this._collections.set(key, collection);
+        return collection;
     }
 }
 exports.EntityStorage = EntityStorage;

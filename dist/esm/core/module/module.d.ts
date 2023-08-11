@@ -1,12 +1,13 @@
 import { IModule } from './data/interfaces';
 import { EntitiesCollection } from '../collections';
 export declare abstract class Module implements IModule {
+    private _key;
     private _colelction;
     private _observers;
     private _events;
     private get _providers();
     protected get collection(): EntitiesCollection;
-    constructor(collection: string);
+    constructor(_key: string);
     init(): void;
     postInit(): void;
     update(deltaTime: number): void;
