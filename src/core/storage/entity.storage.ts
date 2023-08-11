@@ -6,7 +6,6 @@ export class EntityStorage {
 
   public static get(key: string): EntitiesCollection {
     let collection = this._collections.get(key) as EntitiesCollection;
-
     if (!collection) collection = this.create(key);
 
     return collection;
@@ -34,15 +33,11 @@ export class EntityStorage {
     key: string,
     storageKeys: string[]
   ): EntitiesCollection {
-    if (this._collections.has(key)) {
-      return this.get(key);
-    } else {
-      const collections = storageKeys.map((key) => this.get(key));
-      const collection = new CombinedEntitiesCollection(collections);
+    const collections = storageKeys.map((key) => this.get(key));
+    const collection = new CombinedEntitiesCollection(collections);
 
-      this._collections.set(key, collection);
+    this._collections.set(key, collection);
 
-      return collection;
-    }
+    return collection;
   }
 }

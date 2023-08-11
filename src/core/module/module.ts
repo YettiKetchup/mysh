@@ -27,11 +27,10 @@ export abstract class Module implements IModule {
     return this._colelction as EntitiesCollection;
   }
 
-  constructor(collection: string) {
-    this._colelction = EntityStorage.get(collection);
-  }
+  constructor(private _key: string) {}
 
   public init(): void {
+    this._colelction = EntityStorage.get(this._key);
     this.listenEntities();
     this.listenEvents();
     this.runSystems(Lifecycle.Init);
