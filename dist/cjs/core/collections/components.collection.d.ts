@@ -1,6 +1,6 @@
 import { Component, ComponentType } from '../component';
 export declare class ComponentsCollection {
-    get components(): Component[];
+    get items(): Component[];
     get count(): number;
     private _components;
     add(component: Component): void;

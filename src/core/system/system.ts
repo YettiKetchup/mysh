@@ -1,97 +1,26 @@
 import { EntitiesCollection, Filtered } from '../collections';
 import { IComponentFilter } from '../component';
 import { Entity } from '../entity';
+import { Excludes, Includes, WithDisabled } from './decorators';
 
-import {
-  Excludes,
-  Includes,
-  WithDisabled,
-} from './decorators/system.decorators';
-
-/**
- * The system is a class in which all work with the data
- * of the Entity Components takes place.
- *
- * The system gets to work all the Entities whose Components
- * are specified in the Includes(...Components)
- * and Excludes(...Components) class decorators.
- * Entities are not transferred directly to the System,
- * the System always requests the necessary Entities
- * through filtering objects.
- *
- * The system may be asynchronous.
- * But keep in mind that all asynchronous Systems
- * will be executed by the Chain at the same order
- * as they were installed.
- *
- * @example
- *
- * // Synchronous System
- * class HealingSystem extends System<Entity> {
- *   execute(entities: SystemEntitiesCollection<Entity>): void {
- *     entities.loop(entity => {
- *       const health = entity.get(HealthComponent);
- *       const healer = entity.get(HealerComponent);
- *
- *       health.value += healer.value;
- *     });
- *   }
- * }
- *
- * // Asynchronous System
- * class DelaySystem extends System<Entity> {
- *   // This system does not specify the Components that the Entity
- *   // should have using the Includes(...Components) decorator,
- *   // so the System will not receive any Entities. However,
- *   // the execute() method will still be executed.
- *   async execute(entities: SystemEntitiesCollection<Entity>): Promise<void> {
- *     await sleep(2000);
- *   }
- * }
- */
 @Includes()
 @Excludes()
 @WithDisabled(false)
-export abstract class System<TEntity extends Entity = Entity> {
-  private _entityCollection: EntitiesCollection | null = null;
-  private _entities: Filtered<TEntity> | null = null;
-
-  protected get collection(): EntitiesCollection {
-    return this._entityCollection as EntitiesCollection;
-  }
-
-  public get filter(): IComponentFilter {
-    return {
-      includes: (this as any).includes,
-      excludes: (this as any).excludes,
-      withDisabled: (this as any).withDisabled,
-    };
-  }
-
-  public async execute(
+export abstract class System<TData = {}, TEntity extends Entity = Entity> {
+  public execute(
     entities: EntitiesCollection,
-    decorator?: IComponentFilter
-  ): Promise<void> {
-    this._entityCollection = entities;
+    decorator: IComponentFilter,
+    data?: TData
+  ): void {
+    const filter = this.filter(decorator);
+    const filtered = entities.get(filter) as Filtered<TEntity>;
 
-    const filter = decorator
-      ? this.setupFilterDecorator(decorator)
-      : this.filter;
-
-    this._entities = entities.get(filter) as Filtered<TEntity>;
-
-    await this.onExecute(this._entities);
+    this.onExecute(filtered, data);
   }
 
-  public async destroy(): Promise<void> {
-    if (this._entities) {
-      await this.onDestroy(this._entities);
-    }
-  }
+  protected abstract onExecute(entities: Filtered<TEntity>, data?: TData): void;
 
-  protected abstract onExecute(entities: Filtered<TEntity>): void;
-
-  private setupFilterDecorator(decorator: IComponentFilter): IComponentFilter {
+  private filter(decorator: IComponentFilter): IComponentFilter {
     let { includes, excludes, withDisabled } = this as any;
 
     includes = [...includes, ...(decorator.includes || [])];
@@ -103,6 +32,4 @@ export abstract class System<TEntity extends Entity = Entity> {
 
     return { includes, excludes, withDisabled };
   }
-
-  protected onDestroy(entities: Filtered<TEntity>): void {}
 }

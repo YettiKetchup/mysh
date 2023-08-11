@@ -1,5 +1,5 @@
 import { Entity } from '../entity';
-import { EntitySubject, ObserverType } from '../observable';
+import { EntitySubject, WatchFor } from '../observable';
 import { IObservableComponent } from './data/interfaces';
 import { Component } from './data/types';
 
@@ -35,7 +35,7 @@ export class ObservableComponentWrapper<TComponent extends Component>
   }
 
   private notify(entity: Entity, component: TComponent): void {
-    const event = ObserverType.CHANGED;
+    const event = WatchFor.Changed;
     const componentType = component.constructor;
 
     EntitySubject.notify(event, entity, componentType);

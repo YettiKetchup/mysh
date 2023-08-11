@@ -1,5 +1,5 @@
 import { Component, ComponentType } from '../component';
-import { EntitySubject, ObserverType } from '../observable';
+import { EntitySubject, WatchFor } from '../observable';
 import { Entity } from './entity';
 
 export class ObservableEntity {
@@ -18,7 +18,7 @@ export class ObservableEntity {
   public set visible(value: boolean) {
     this._entity.visible = value;
 
-    const event = value ? ObserverType.ENABLED : ObserverType.DISABLED;
+    const event = value ? WatchFor.Enabled : WatchFor.Disabled;
 
     EntitySubject.notify(event, this._entity);
   }
@@ -65,7 +65,7 @@ export class ObservableEntity {
    */
   public add(component: Component): void {
     this._entity.add(component);
-    const event = ObserverType.ADDED;
+    const event = WatchFor.Added;
     const componentType = component.constructor;
     EntitySubject.notify(event, this._entity, componentType);
   }
@@ -96,7 +96,7 @@ export class ObservableEntity {
     componentType: ComponentType<TComponent>
   ): TComponent {
     const component = this._entity.remove(componentType);
-    const event = ObserverType.REMOVED;
+    const event = WatchFor.Removed;
     EntitySubject.notify(event, this._entity, componentType);
     return component;
   }

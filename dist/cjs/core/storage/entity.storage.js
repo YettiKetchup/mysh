@@ -2,19 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EntityStorage = void 0;
 const collections_1 = require("../collections");
+const combined_entities_collection_1 = require("../collections/combined-entities.collection");
 class EntityStorage {
-    constructor() {
-        this._collections = new Map();
+    static { this._collections = new Map(); }
+    static get(key) {
+        let collection = this._collections.get(key);
+        if (!collection)
+            collection = this.create(key);
+        return collection;
     }
-    get(key) {
-        try {
-            return this._collections.get(key);
-        }
-        catch (e) {
-            throw new Error(`Collection ${key} didn't exist!`);
-        }
-    }
-    create(key) {
+    static create(key) {
         if (this._collections.has(key)) {
             return this.get(key);
         }
@@ -22,18 +19,17 @@ class EntityStorage {
         this._collections.set(key, collection);
         return collection;
     }
-    destroy(key) {
+    static destroy(key) {
         this._collections.delete(key);
     }
-    clearAll() {
+    static clearAll() {
         this._collections = new Map();
     }
-    combine(key, storages) {
-        const newCollection = this.create(key);
-        storages.forEach((collection) => {
-            newCollection.add(...collection.entities);
-        });
-        return newCollection;
+    static combine(key, storageKeys) {
+        const collections = storageKeys.map((key) => this.get(key));
+        const collection = new combined_entities_collection_1.CombinedEntitiesCollection(collections);
+        this._collections.set(key, collection);
+        return collection;
     }
 }
 exports.EntityStorage = EntityStorage;

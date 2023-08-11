@@ -16,7 +16,7 @@ class ObservableEntity {
     }
     set visible(value) {
         this._entity.visible = value;
-        const event = value ? observable_1.ObserverType.ENABLED : observable_1.ObserverType.DISABLED;
+        const event = value ? observable_1.WatchFor.Enabled : observable_1.WatchFor.Disabled;
         observable_1.EntitySubject.notify(event, this._entity);
     }
     get subject() {
@@ -60,7 +60,7 @@ class ObservableEntity {
      */
     add(component) {
         this._entity.add(component);
-        const event = observable_1.ObserverType.ADDED;
+        const event = observable_1.WatchFor.Added;
         const componentType = component.constructor;
         observable_1.EntitySubject.notify(event, this._entity, componentType);
     }
@@ -88,7 +88,7 @@ class ObservableEntity {
      */
     remove(componentType) {
         const component = this._entity.remove(componentType);
-        const event = observable_1.ObserverType.REMOVED;
+        const event = observable_1.WatchFor.Removed;
         observable_1.EntitySubject.notify(event, this._entity, componentType);
         return component;
     }

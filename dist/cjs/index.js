@@ -14,15 +14,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./core/chain"), exports);
-__exportStar(require("./core/collections"), exports);
-__exportStar(require("./core/component"), exports);
-__exportStar(require("./core/entity"), exports);
-__exportStar(require("./core/observable"), exports);
-__exportStar(require("./core/system"), exports);
-__exportStar(require("./core/module"), exports);
-__exportStar(require("./storage"), exports);
-__exportStar(require("./stage"), exports);
-__exportStar(require("./caching"), exports);
+__exportStar(require("./core"), exports);
 __exportStar(require("./tools/utils"), exports);
 //# sourceMappingURL=index.js.map

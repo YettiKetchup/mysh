@@ -1,3 +1,4 @@
+import { EntitiesCollection } from '../collections';
 import { ObservableEntity } from './observable.entity';
 import { Component, IComponentFilter, ComponentType, ObservableComponent } from '../component';
 export declare class Entity {
@@ -5,9 +6,12 @@ export declare class Entity {
     get visible(): boolean;
     set visible(value: boolean);
     get components(): Component[];
+    get collection(): EntitiesCollection;
+    set collection(value: EntitiesCollection);
     private _id;
     private _visible;
-    private _collection;
+    private _components;
+    private _entityCollection;
     onInit(): void;
     onDestroy(): void;
     add(component: Component): void;
@@ -16,5 +20,6 @@ export declare class Entity {
     has(types: ComponentType<any>[]): boolean;
     isSatisfiedFilter(filter: IComponentFilter): boolean;
     observable(): ObservableEntity;
+    destroy(): void;
     private createObservableComponent;
 }
