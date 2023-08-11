@@ -1,6 +1,3 @@
-export interface IPreInitable {
-    preInit(): void;
-}
 export interface IInitable {
     init(): void;
 }
@@ -16,5 +13,5 @@ export interface IPostUpdatable {
 export interface IDestroyable {
     destroy(): void;
 }
-export interface IModule extends IPreInitable, IInitable, IPostInitable, IUpdatable, IPostUpdatable, IDestroyable {
+export interface IModule extends IInitable, IPostInitable, IUpdatable, IPostUpdatable, IDestroyable {
 }

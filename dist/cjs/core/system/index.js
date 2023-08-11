@@ -14,11 +14,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SystemsCaching = exports.System = void 0;
-__exportStar(require("./decorators/system.decorators"), exports);
+exports.System = void 0;
+__exportStar(require("./data/lifecycle.enum"), exports);
 __exportStar(require("./data/types"), exports);
+__exportStar(require("./decorators"), exports);
 var system_1 = require("./system");
 Object.defineProperty(exports, "System", { enumerable: true, get: function () { return system_1.System; } });
-var systems_caching_1 = require("./systems.caching");
-Object.defineProperty(exports, "SystemsCaching", { enumerable: true, get: function () { return systems_caching_1.SystemsCaching; } });
 //# sourceMappingURL=index.js.map

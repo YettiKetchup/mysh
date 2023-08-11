@@ -11,7 +11,10 @@ export class EntitiesCollection {
     }
     add(...entities) {
         this._entities.push(...entities);
-        entities.forEach((entity) => entity.onInit());
+        entities.forEach((entity) => {
+            entity.collection = this;
+            entity.onInit();
+        });
     }
     destroy(entity) {
         this._entities = this._entities.filter((e) => e.id !== entity.id);

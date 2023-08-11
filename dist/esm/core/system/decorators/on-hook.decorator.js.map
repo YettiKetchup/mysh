@@ -1,0 +1,1 @@
+{"version":3,"file":"on-hook.decorator.js","sourceRoot":"","sources":["../../../../../src/core/system/decorators/on-hook.decorator.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,0BAA0B,EAAE,MAAM,mBAAmB,CAAC;AAG/D,MAAM,UAAU,MAAM,CAAC,IAAe;IACpC,OAAO,UAAU,WAA8B;QAC7C,0BAA0B,CAAC,GAAG,CAAC,WAAW,EAAE,IAAI,CAAC,CAAC;IACpD,CAAC,CAAC;AACJ,CAAC"}

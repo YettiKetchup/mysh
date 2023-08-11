@@ -30,7 +30,7 @@ class ObservableComponentWrapper {
         }
     }
     notify(entity, component) {
-        const event = observable_1.ObserverType.CHANGED;
+        const event = observable_1.WatchFor.Changed;
         const componentType = component.constructor;
         observable_1.EntitySubject.notify(event, entity, componentType);
     }

@@ -16,6 +16,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Module = void 0;
 __exportStar(require("./data/interfaces"), exports);
+__exportStar(require("./decorators"), exports);
 var module_1 = require("./module");
 Object.defineProperty(exports, "Module", { enumerable: true, get: function () { return module_1.Module; } });
 //# sourceMappingURL=index.js.map

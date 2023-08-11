@@ -1,11 +1,11 @@
 import { ComponentType } from '../component';
 import { Entity } from '../entity';
-import { ObserverType } from './data/observer-type.enum';
+import { WatchFor } from './data/watch-for.enum';
 import { ObserverConditionPipe, ObserverSubscribeCallback } from './data/types';
 import { EntitySubject } from './entity-subject';
 
 export class EntityObserver {
-  public get type(): ObserverType {
+  public get type(): WatchFor {
     return this._type;
   }
 
@@ -16,10 +16,7 @@ export class EntityObserver {
   private _pipes: ObserverConditionPipe[] = [];
   private _callback: ObserverSubscribeCallback = () => {};
 
-  constructor(
-    private _type: ObserverType,
-    private _watch?: ComponentType<any>
-  ) {}
+  constructor(private _type: WatchFor, private _watch?: ComponentType<any>) {}
 
   public pipe(condition: ObserverConditionPipe): EntityObserver {
     this._pipes.push(condition);

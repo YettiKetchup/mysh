@@ -1,4 +1,4 @@
-import { EntitySubject, ObserverType } from '../observable';
+import { EntitySubject, WatchFor } from '../observable';
 export class ObservableEntity {
     /**
      * If the Entity is not active, it will be ignored by Systems,
@@ -13,7 +13,7 @@ export class ObservableEntity {
     }
     set visible(value) {
         this._entity.visible = value;
-        const event = value ? ObserverType.ENABLED : ObserverType.DISABLED;
+        const event = value ? WatchFor.Enabled : WatchFor.Disabled;
         EntitySubject.notify(event, this._entity);
     }
     get subject() {
@@ -57,7 +57,7 @@ export class ObservableEntity {
      */
     add(component) {
         this._entity.add(component);
-        const event = ObserverType.ADDED;
+        const event = WatchFor.Added;
         const componentType = component.constructor;
         EntitySubject.notify(event, this._entity, componentType);
     }
@@ -85,7 +85,7 @@ export class ObservableEntity {
      */
     remove(componentType) {
         const component = this._entity.remove(componentType);
-        const event = ObserverType.REMOVED;
+        const event = WatchFor.Removed;
         EntitySubject.notify(event, this._entity, componentType);
         return component;
     }

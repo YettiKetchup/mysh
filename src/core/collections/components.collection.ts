@@ -1,7 +1,7 @@
 import { Component, ComponentType } from '../component';
 
 export class ComponentsCollection {
-  public get components(): Component[] {
+  public get items(): Component[] {
     return this._components;
   }
 
@@ -26,7 +26,7 @@ export class ComponentsCollection {
   public remove<T extends Component>(type: ComponentType<T>): T | null {
     const component = this.get(type);
 
-    this._components = this.components.filter(
+    this._components = this.items.filter(
       (component) => component.constructor !== type
     );
 

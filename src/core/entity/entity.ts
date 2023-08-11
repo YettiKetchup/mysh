@@ -1,6 +1,6 @@
 import { uid } from '../../tools/utils';
-import { ComponentsCollection } from '../collections';
-import { EntitySubject, ObserverType } from '../observable';
+import { ComponentsCollection, EntitiesCollection } from '../collections';
+import { EntitySubject, WatchFor } from '../observable';
 import { ObservableEntity } from './observable.entity';
 import {
   Component,
@@ -24,27 +24,40 @@ export class Entity {
   }
 
   public get components(): Component[] {
-    return this._collection.components;
+    return this._components.items;
+  }
+
+  public get collection(): EntitiesCollection {
+    return this._entityCollection as EntitiesCollection;
+  }
+
+  public set collection(value: EntitiesCollection) {
+    this._entityCollection = value;
   }
 
   private _id: string = uid();
   private _visible: boolean = true;
-  private _collection: ComponentsCollection = new ComponentsCollection();
+  private _components: ComponentsCollection = new ComponentsCollection();
+  private _entityCollection: EntitiesCollection | null = null;
 
   public onInit(): void {
-    EntitySubject.notify(ObserverType.INITIALIZED, this);
+    EntitySubject.notify(WatchFor.Initialized, this);
   }
 
   public onDestroy(): void {
-    EntitySubject.notify(ObserverType.DESTROYED, this);
+    EntitySubject.notify(WatchFor.Destroyed, this);
   }
 
   public add(component: Component): void {
-    if (this._collection.has(component.constructor)) {
+    if (this._components.has(component.constructor)) {
       throw new Error(`Entity already contains ${component.constructor.name}`);
     }
 
-    this._collection.add(component);
+    this._components.add(component);
+
+    if (this._components.count == 1) {
+      EntitySubject.notify(WatchFor.ReadyToWork, this);
+    }
   }
 
   public get<T extends Component>(
@@ -52,7 +65,7 @@ export class Entity {
     isObservable: boolean = false
   ): T | ObservableComponent<T> {
     try {
-      const component = this._collection.get(type);
+      const component = this._components.get(type);
       return isObservable
         ? this.createObservableComponent(component as T)
         : (component as T);
@@ -62,7 +75,7 @@ export class Entity {
   }
 
   public remove<T extends Component>(type: ComponentType<T>): T {
-    const component = this._collection.remove(type) as T;
+    const component = this._components.remove(type) as T;
 
     if (!component) {
       throw new Error(`${type.name} didn't exist in Entity`);
@@ -72,7 +85,7 @@ export class Entity {
   }
 
   public has(types: ComponentType<any>[]): boolean {
-    return types.every((component) => this._collection.has(component));
+    return types.every((component) => this._components.has(component));
   }
 
   public isSatisfiedFilter(filter: IComponentFilter): boolean {
@@ -84,6 +97,10 @@ export class Entity {
 
   public observable(): ObservableEntity {
     return new ObservableEntity(this);
+  }
+
+  public destroy() {
+    this.collection.destroy(this);
   }
 
   private createObservableComponent<T extends Component>(
