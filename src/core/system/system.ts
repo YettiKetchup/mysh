@@ -7,18 +7,26 @@ import { Excludes, Includes, WithDisabled } from './decorators';
 @Excludes()
 @WithDisabled(false)
 export abstract class System<TData = {}, TEntity extends Entity = Entity> {
+  private _collection: EntitiesCollection | null = null;
+
+  protected get collection(): EntitiesCollection {
+    return this._collection as EntitiesCollection;
+  }
+
   public execute(
-    entities: EntitiesCollection,
+    collection: EntitiesCollection,
     decorator: IComponentFilter,
     data?: TData
   ): void {
+    this._collection = (this as any).redefinedCollection || collection;
+
     const filter = this.filter(decorator);
-    const filtered = entities.get(filter) as Filtered<TEntity>;
+    const filtered = this.collection.get(filter) as Filtered<TEntity>;
 
     this.onExecute(filtered, data);
   }
 
-  protected abstract onExecute(entities: Filtered<TEntity>, data?: TData): void;
+  protected abstract onExecute(filtered: Filtered, data?: TData): void;
 
   private filter(decorator: IComponentFilter): IComponentFilter {
     let { includes, excludes, withDisabled } = this as any;
