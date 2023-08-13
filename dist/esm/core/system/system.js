@@ -6,9 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { Excludes, Includes, WithDisabled } from './decorators';
 export let System = class System {
-    execute(entities, decorator, data) {
+    constructor() {
+        this._collection = null;
+    }
+    get collection() {
+        return this._collection;
+    }
+    execute(collection, decorator, data) {
+        this._collection = this.redefinedCollection || collection;
         const filter = this.filter(decorator);
-        const filtered = entities.get(filter);
+        const filtered = this.collection.get(filter);
         this.onExecute(filtered, data);
     }
     filter(decorator) {
