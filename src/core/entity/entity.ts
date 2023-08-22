@@ -39,6 +39,7 @@ export class Entity {
   private _visible: boolean = true;
   private _components: ComponentsCollection = new ComponentsCollection();
   private _entityCollection: EntitiesCollection | null = null;
+  private _observable: ObservableEntity = new ObservableEntity(this);
 
   public onInit(): void {
     EntitySubject.notify(WatchFor.Initialized, this);
@@ -96,10 +97,10 @@ export class Entity {
   }
 
   public observable(): ObservableEntity {
-    return new ObservableEntity(this);
+    return this._observable;
   }
 
-  public destroy() {
+  public destroy(): void {
     this.collection.destroy(this);
   }
 

@@ -19,6 +19,8 @@ export declare class ObservableEntity {
      * from which the ObservableEntity was retrieved.
      */
     get instance(): Entity;
+    private _componentAdeddPool;
+    private _addComponentsDebounced;
     constructor(_entity: Entity);
     /**
      * Adds a new component to the Entity and fire ObserverType.ADDED event.
@@ -70,4 +72,5 @@ export declare class ObservableEntity {
      * entity$.add(secondHealth); // secondHealth is of the same type as health, an error will be thrown.
      */
     remove<TComponent extends Component>(componentType: ComponentType<TComponent>): TComponent;
+    private emitComponentsAdded;
 }

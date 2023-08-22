@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ObservableEntity = void 0;
+const utils_1 = require("../../tools/utils");
 const observable_1 = require("../observable");
 class ObservableEntity {
     /**
@@ -31,6 +32,8 @@ class ObservableEntity {
     }
     constructor(_entity) {
         this._entity = _entity;
+        this._componentAdeddPool = [];
+        this._addComponentsDebounced = (0, utils_1.debounce)(this.emitComponentsAdded.bind(this));
     }
     /**
      * Adds a new component to the Entity and fire ObserverType.ADDED event.
@@ -60,9 +63,9 @@ class ObservableEntity {
      */
     add(component) {
         this._entity.add(component);
-        const event = observable_1.WatchFor.Added;
         const componentType = component.constructor;
-        observable_1.EntitySubject.notify(event, this._entity, componentType);
+        this._componentAdeddPool.push(componentType);
+        this._addComponentsDebounced();
     }
     /**
      * Removes and returns a component of the specified type.
@@ -91,6 +94,13 @@ class ObservableEntity {
         const event = observable_1.WatchFor.Removed;
         observable_1.EntitySubject.notify(event, this._entity, componentType);
         return component;
+    }
+    emitComponentsAdded() {
+        const event = observable_1.WatchFor.Added;
+        this._componentAdeddPool.forEach((component) => {
+            observable_1.EntitySubject.notify(event, this._entity, component);
+        });
+        this._componentAdeddPool.length = 0;
     }
 }
 exports.ObservableEntity = ObservableEntity;
