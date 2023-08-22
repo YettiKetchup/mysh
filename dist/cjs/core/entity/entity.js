@@ -12,6 +12,7 @@ class Entity {
         this._visible = true;
         this._components = new collections_1.ComponentsCollection();
         this._entityCollection = null;
+        this._observable = new observable_entity_1.ObservableEntity(this);
     }
     get id() {
         return this._id;
@@ -73,7 +74,7 @@ class Entity {
         return this.has(includes) && (!excludes.length || !this.has(excludes));
     }
     observable() {
-        return new observable_entity_1.ObservableEntity(this);
+        return this._observable;
     }
     destroy() {
         this.collection.destroy(this);
