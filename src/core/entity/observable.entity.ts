@@ -1,3 +1,4 @@
+import { debounce } from '../../tools/utils';
 import { Component, ComponentType } from '../component';
 import { EntitySubject, WatchFor } from '../observable';
 import { Entity } from './entity';
@@ -35,6 +36,12 @@ export class ObservableEntity {
     return this._entity;
   }
 
+  private _componentAdeddPool: ComponentType<any>[] = [];
+
+  private _addComponentsDebounced = debounce(
+    this.emitComponentsAdded.bind(this)
+  );
+
   constructor(private _entity: Entity) {}
 
   /**
@@ -65,9 +72,9 @@ export class ObservableEntity {
    */
   public add(component: Component): void {
     this._entity.add(component);
-    const event = WatchFor.Added;
     const componentType = component.constructor;
-    EntitySubject.notify(event, this._entity, componentType);
+    this._componentAdeddPool.push(componentType);
+    this._addComponentsDebounced();
   }
 
   /**
@@ -99,5 +106,14 @@ export class ObservableEntity {
     const event = WatchFor.Removed;
     EntitySubject.notify(event, this._entity, componentType);
     return component;
+  }
+
+  private emitComponentsAdded(): void {
+    const event = WatchFor.Added;
+    this._componentAdeddPool.forEach((component) => {
+      EntitySubject.notify(event, this._entity, component);
+    });
+
+    this._componentAdeddPool.length = 0;
   }
 }

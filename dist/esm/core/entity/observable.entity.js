@@ -1,3 +1,4 @@
+import { debounce } from '../../tools/utils';
 import { EntitySubject, WatchFor } from '../observable';
 export class ObservableEntity {
     /**
@@ -28,6 +29,8 @@ export class ObservableEntity {
     }
     constructor(_entity) {
         this._entity = _entity;
+        this._componentAdeddPool = [];
+        this._addComponentsDebounced = debounce(this.emitComponentsAdded.bind(this));
     }
     /**
      * Adds a new component to the Entity and fire ObserverType.ADDED event.
@@ -57,9 +60,9 @@ export class ObservableEntity {
      */
     add(component) {
         this._entity.add(component);
-        const event = WatchFor.Added;
         const componentType = component.constructor;
-        EntitySubject.notify(event, this._entity, componentType);
+        this._componentAdeddPool.push(componentType);
+        this._addComponentsDebounced();
     }
     /**
      * Removes and returns a component of the specified type.
@@ -88,6 +91,13 @@ export class ObservableEntity {
         const event = WatchFor.Removed;
         EntitySubject.notify(event, this._entity, componentType);
         return component;
+    }
+    emitComponentsAdded() {
+        const event = WatchFor.Added;
+        this._componentAdeddPool.forEach((component) => {
+            EntitySubject.notify(event, this._entity, component);
+        });
+        this._componentAdeddPool.length = 0;
     }
 }
 //# sourceMappingURL=observable.entity.js.map

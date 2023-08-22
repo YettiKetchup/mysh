@@ -9,6 +9,7 @@ export class Entity {
         this._visible = true;
         this._components = new ComponentsCollection();
         this._entityCollection = null;
+        this._observable = new ObservableEntity(this);
     }
     get id() {
         return this._id;
@@ -70,7 +71,7 @@ export class Entity {
         return this.has(includes) && (!excludes.length || !this.has(excludes));
     }
     observable() {
-        return new ObservableEntity(this);
+        return this._observable;
     }
     destroy() {
         this.collection.destroy(this);

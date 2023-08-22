@@ -12,6 +12,7 @@ export declare class Entity {
     private _visible;
     private _components;
     private _entityCollection;
+    private _observable;
     onInit(): void;
     onDestroy(): void;
     add(component: Component): void;
