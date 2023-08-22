@@ -1,4 +1,4 @@
-import { uid } from '../../tools/utils';
+import { debounce, uid } from '../../tools/utils';
 import { ComponentsCollection, EntitiesCollection } from '../collections';
 import { EntitySubject, WatchFor } from '../observable';
 import { ObservableEntity } from './observable.entity';
@@ -40,6 +40,8 @@ export class Entity {
   private _components: ComponentsCollection = new ComponentsCollection();
   private _entityCollection: EntitiesCollection | null = null;
   private _observable: ObservableEntity = new ObservableEntity(this);
+
+  private _destroyDebounced = debounce(this.needDestroy.bind(this));
 
   public onInit(): void {
     EntitySubject.notify(WatchFor.Initialized, this);
@@ -100,7 +102,11 @@ export class Entity {
     return this._observable;
   }
 
-  public destroy(): void {
+  public destroy(delay: number = 0): void {
+    this._destroyDebounced(delay);
+  }
+
+  private needDestroy(): void {
     this.collection.destroy(this);
   }
 

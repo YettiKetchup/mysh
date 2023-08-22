@@ -1,9 +1,11 @@
 type Callback = (...args: any[]) => void;
 
-export const debounce = (callback: Callback, delay: number = 0): Callback => {
+type DebounceCallback = (delay: number, ...args: any[]) => void;
+
+export const debounce = (callback: Callback): DebounceCallback => {
   let timer: ReturnType<typeof setTimeout>;
 
-  return (...args: any[]) => {
+  return (delay: number = 0, ...args: any[]) => {
     if (timer) clearTimeout(timer);
 
     timer = setTimeout(() => {

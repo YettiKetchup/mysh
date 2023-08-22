@@ -70,11 +70,11 @@ export class ObservableEntity {
    * const secondHealth = new HealthComponent(200);
    * entity$.add(secondHealth); // secondHealth is of the same type as health, an error will be thrown.
    */
-  public add(component: Component): void {
+  public add(component: Component, delay: number = 0): void {
     this._entity.add(component);
     const componentType = component.constructor;
     this._componentAdeddPool.push(componentType);
-    this._addComponentsDebounced();
+    this._addComponentsDebounced(delay);
   }
 
   /**
